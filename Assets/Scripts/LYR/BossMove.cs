@@ -6,9 +6,11 @@ public class BossMove : MonoBehaviour
 {
     float moveSpeed = 5f; // 이동 속도
     float rotationSpeed = 720f;
-    GameObject nearestObstacle; // 가장 가까운 Obstacle
+    GameObject nearestObstacle; // 가장 가까운 Obstacle (locked target)
     float searchInterval = 0.5f; // 검색 주기 (초)
     float timer = 0f;
+    bool isLockedOnTarget = false; // 타겟 잠금 여부
+    float maxDistance = 10f; // 최대 거리 (10 유닛)
     BossController _bosscontroller;
     bool hasShot = false;
 
@@ -24,15 +26,17 @@ public class BossMove : MonoBehaviour
         _bosscontroller = GetComponent<BossController>();
     }
 
-
     void Update()
     {
-        // 일정 주기마다 Obstacle 검색
-        timer += Time.deltaTime;
-        if (timer >= searchInterval)
+        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
+        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
         {
-            FindNearestObstacle();
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer >= searchInterval)
+            {
+                FindNearestObstacle();
+                timer = 0f;
+            }
         }
 
         // 가장 가까운 Obstacle이 있으면 이동
@@ -44,7 +48,6 @@ public class BossMove : MonoBehaviour
 
         if (_bosscontroller.bossTrashList.Count >= 5 && !hasShot)
         {
-            Debug.Log("보스가 발사 조건 만족, ShootTrash 호출됨!");
             ShootTrash();
             hasShot = true;
         }
@@ -53,6 +56,13 @@ public class BossMove : MonoBehaviour
         {
             hasShot = false;
         }
+    }
+
+    bool IsTargetTooFar()
+    {
+        if (nearestObstacle == null) return true;
+        float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
+        return distance > maxDistance;
     }
 
     void FindNearestObstacle()
@@ -72,6 +82,16 @@ public class BossMove : MonoBehaviour
                 minDistance = distance;
                 nearestObstacle = obstacle;
             }
+        }
+
+        // 새로운 타겟을 찾았으면 잠금 플래그 설정
+        if (nearestObstacle != null)
+        {
+            isLockedOnTarget = true;
+        }
+        else
+        {
+            isLockedOnTarget = false;
         }
     }
 
@@ -104,28 +124,12 @@ public class BossMove : MonoBehaviour
 
     void ShootTrash()
     {
-        Debug.Log("💥 ShootTrash() 진입");
-
-        if (_bosscontroller.bossTrashList.Count < 5)
-        {
-            Debug.Log("❌ 쓰레기 5개 안 모임");
-            return;
-        }
-
-
-        if (player == null)
-        {
-            Debug.Log("❌ 플레이어 찾을 수 없음");
-            return;
-        }
-
         Vector3 playerDir = (player.transform.position - transform.position).normalized;
 
         for (int i = 0; i < _bosscontroller.bossTrashList.Count; i++)
         {
             GameObject shootObj = null;
             int trashId = _bosscontroller.bossTrashList[i];
-            Debug.Log($"쓰레기 발사 준비: id={trashId}");
 
             switch (trashId)
             {
@@ -148,15 +152,10 @@ public class BossMove : MonoBehaviour
                 Obstacle obs = shootObj.GetComponent<Obstacle>();
                 obs.isAttack = true;
                 obs.dir = playerDir + Vector3.right * 0.2f * (i - 2);
-                Debug.Log($"🎯 발사 완료: {shootObj.name}");
             }
-            else
-            {
-                Debug.Log("❗ shootObj 생성 실패");
-            }
+
         }
 
         _bosscontroller.bossTrashList.Clear();
     }
-
-    }
+}
