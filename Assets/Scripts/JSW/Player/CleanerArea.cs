@@ -51,7 +51,7 @@ public class CleanerArea : MonoBehaviour
             Vector3 direction = (_playerTransform.position - rb.transform.position);
             float distance = direction.magnitude;
 
-            if (distance < 1.5f && _playerController.trashList.Count < 5)
+            if (distance < 3.0f && _playerController.trashList.Count < 5)
             {
                 _playerController.trashList.Add(rb.gameObject.GetComponent<Obstacle>().trashId);
                 trashInRange.RemoveAt(i);
