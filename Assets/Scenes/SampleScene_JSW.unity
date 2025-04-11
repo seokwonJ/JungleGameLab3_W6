@@ -625,6 +625,7 @@ MonoBehaviour:
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   trashListObject: {fileID: 1000141876}
+  smoke: {fileID: 0}
 --- !u!1 &177719667
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +693,7 @@ MonoBehaviour:
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   trashListObject: {fileID: 0}
+  smoke: {fileID: 4977647098418258}
 --- !u!114 &177719671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11721,6 +11723,7 @@ MonoBehaviour:
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   trashListObject: {fileID: 1000141876}
+  smoke: {fileID: 0}
 --- !u!1 &1618416464
 GameObject:
   m_ObjectHideFlags: 0
@@ -13414,6 +13417,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 779966555}
     m_Modifications:
+    - target: {fileID: 1085412806299596, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119560965430016, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1720670327315042, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1838308332998216, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
       propertyPath: m_Name
       value: Smoke
@@ -14327,6 +14346,11 @@ Transform:
 --- !u!4 &4977647098418255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4977646799359860, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  m_PrefabInstance: {fileID: 1918196539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4977647098418258 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
   m_PrefabInstance: {fileID: 1918196539}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &783219033719746994
