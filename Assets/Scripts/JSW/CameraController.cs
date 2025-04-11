@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
 
     public void StartShake(float duration, float magnitude)
     {
+        print("Shake");
         StartCoroutine(Shake(duration, magnitude));
     }
 }
