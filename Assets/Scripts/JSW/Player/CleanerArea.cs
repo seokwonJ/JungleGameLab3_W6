@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CleanerArea : MonoBehaviour
@@ -51,7 +51,7 @@ public class CleanerArea : MonoBehaviour
             Vector3 direction = (_playerTransform.position - rigidbody.transform.position);
             float distance = direction.magnitude;
 
-            if (distance < 1.5f && _playerController.trashList.Count < _attackLimit)
+            if (distance < 3f && _playerController.trashList.Count < _attackLimit)
             {
                 _playerController.trashList.Add(rigidbody.gameObject.GetComponent<Obstacle>().trashId);
                 _trashInRange.RemoveAt(i);
