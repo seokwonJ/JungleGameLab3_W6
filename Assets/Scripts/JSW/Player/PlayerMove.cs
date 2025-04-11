@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     public float slowSpeed;
     private float _nowSpeed;
     
-
     Rigidbody rigid;
 
     private int _numState = 0;
@@ -19,20 +18,22 @@ public class PlayerMove : MonoBehaviour
     private float _attackTime = 0.1f;
     private float _dashTime = 0.4f;
     private Vector3 _lastDir;
+    private Animator _animator;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
     {
-        // ±âº» »óÅÂ
+        // ê¸°ë³¸ ìƒíƒœ
         if (_numState == 0)
         {
             _nowSpeed = speed;
         }
-        // Àá±ñ ½ºÅÏ ¹× ¾ÆÀÌÅÛ ¶³±¸±â (actionÀ¸·Î invokeÇÏ¸é ÁÁÀ» µí)
+        // ì ê¹ ìŠ¤í„´ ë° ì•„ì´í…œ ë–¨êµ¬ê¸° (actionìœ¼ë¡œ invokeí•˜ë©´ ì¢‹ì„ ë“¯)
         else if (_numState == 1)
         {
             _stateTime += Time.deltaTime;
@@ -45,7 +46,7 @@ public class PlayerMove : MonoBehaviour
                 _nowSpeed = 0;
             }
         }
-        // ÀÏÁ¤½Ã°£ ´À·ÁÁö±â
+        // ì¼ì •ì‹œê°„ ëŠë ¤ì§€ê¸°
         else if (_numState == 2)
         {
             _stateTime += Time.deltaTime;
@@ -58,7 +59,7 @@ public class PlayerMove : MonoBehaviour
                 _nowSpeed = slowSpeed;
             }
         }
-        // ¹Ì²ô·¯Áö±â
+        // ë¯¸ë„ëŸ¬ì§€ê¸°
         else if (_numState == 3)
         {
             _stateTime += Time.deltaTime;
@@ -68,10 +69,10 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                _nowSpeed = 10;
+                _nowSpeed = 30;
             }
         }
-        // °ø°İ ¹İµ¿
+        // ê³µê²© ë°˜ë™
         else if (_numState == 4)
         {
             _stateTime += Time.deltaTime;
@@ -86,7 +87,7 @@ public class PlayerMove : MonoBehaviour
                 _nowSpeed = Mathf.Lerp(_nowSpeed, speed, Time.deltaTime * 30);
             }
         }
-        // ´ë½¬
+        // ëŒ€ì‰¬
         else if (_numState == 5)
         {
             _stateTime += Time.deltaTime;
@@ -110,7 +111,7 @@ public class PlayerMove : MonoBehaviour
         Vector3 nextVec = moveDir.normalized * _nowSpeed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
 
-        // È¸Àü
+        // íšŒì „
         if (moveDir != Vector3.zero && (_numState != 4 && _numState != 5))
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
@@ -121,7 +122,10 @@ public class PlayerMove : MonoBehaviour
     void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
-        inputVec = new Vector3(input.x, 0, input.y); // X,Z·Î ÀÌµ¿
+        inputVec = new Vector3(input.x, 0, input.y); // X,Zë¡œ ì´ë™
+
+        _animator.SetFloat("moveDirection_x", input.x * 2f);
+        _animator.SetFloat("moveDirection_y", input.y * 2f); // zì¶•ì´ ì „í›„ ì´ë™ì— í•´ë‹¹
 
         if (_numState == 4 || _numState == 5)
         {
@@ -138,17 +142,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (_numState == 5 && num == 5 && _stateTime > _dashTime - 0.1)
         {
-            _nowSpeed = 20;
+            _nowSpeed = 60;
             _stateTime = 0;
         }
         if (_numState == num) return;
-        if (_numState >= 1 && _numState <= 3 && (num == 4 || num ==5)) return;
+        if (_numState >= 1 && _numState <= 3 && (num == 4 || num == 5)) return;
         _stateTime = 0;
         _numState = num;
         if (_numState == 4 || _numState == 5)
         {
             _lastDir = inputVec;
-            _nowSpeed = 20;
+            _nowSpeed = 60;
         }
     }
 }
