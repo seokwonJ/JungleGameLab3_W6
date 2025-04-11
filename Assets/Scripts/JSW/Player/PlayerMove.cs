@@ -95,6 +95,7 @@ public class PlayerMove : MonoBehaviour
             {
                 ChangetState(0);
                 inputVec = _lastDir;
+                rigid.useGravity = true; 
             }
             else
             {
@@ -104,6 +105,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     _stateTime = _dashTime;
                 }
+                rigid.useGravity = false;
             }
         }
 

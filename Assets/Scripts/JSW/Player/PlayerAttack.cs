@@ -140,5 +140,4 @@ public class PlayerAttack : MonoBehaviour
         obstacle.isAttack = true;
         obstacle.dir = transform.forward + transform.right * 0.2f * num;
     }
-    
 }

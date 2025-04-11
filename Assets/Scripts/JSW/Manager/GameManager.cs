@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         int p2Score = 0;
         for (int i = 0;i <obstacleObjectList.transform.childCount;i++)
         {
+            print(i);
             if (obstacleObjectList.transform.GetChild(i).position.x < 0)
             {
                 p1Score += 1;
