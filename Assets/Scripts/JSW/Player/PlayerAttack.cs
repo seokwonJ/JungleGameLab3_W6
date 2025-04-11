@@ -37,52 +37,7 @@ public class PlayerAttack : MonoBehaviour
         if (_buttonAttack)
         {
             _buttonAttackTime += Time.deltaTime;
-            print(_buttonAttackTime);
-            if (_buttonAttackTime > 0.2f)
-            {
-                //Debug.Log("Attack Ãë¼ÒµÊ!");
-                if (_playerController.trashList.Count > 0)
-                {
-                    for (int i = 0; i < _playerController.trashList.Count; i++)
-                    {
-                        GameObject shootObject = null;
-                        switch (_playerController.trashList[i])
-                        {
-
-                            case 1:
-                                shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                                shootObject.tag = "Trash";
-                                break;
-                            case 2:
-                                shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                                shootObject.tag = "Ice";
-                                break;
-                            case 3:
-                                shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                                shootObject.tag = "Banana";
-                                break;
-                            default:
-                                break;
-                        }
-                        Obstacle obstacle = shootObject.GetComponent<Obstacle>();
-                        obstacle.isAttack = true;
-                        obstacle.dir = transform.forward + transform.right * 0.2f * i;
-                        //shootObject.transform.GetChild(1).gameObject.SetActive(true);
-                    }
-
-                    Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
-                    _playMove.ChangetState(4);
-                    _playerController.trashList.Clear();
-                }
-                else
-                {
-                    _playMove.ChangetState(5);
-                }
-                _cleanerArea.SetActive(false);
-                _buttonAttack = false;
-                _buttonAttackTime = 0;
-            }
-
+            PlayerLongAttack();
         }
     }
 
@@ -107,7 +62,12 @@ public class PlayerAttack : MonoBehaviour
     private void OnInteractCanceled(InputAction.CallbackContext context)
     {
         if (!_buttonAttack) return;
-        if(_buttonAttackTime <= 0.2f)
+        PlayerShortAttack();
+    }
+
+   private void PlayerShortAttack()
+   {
+        if (_buttonAttackTime <= 0.2f)
         {
             if (_playerController.trashList.Count > 0)
             {
@@ -145,5 +105,54 @@ public class PlayerAttack : MonoBehaviour
         }
         _buttonAttack = false;
         _buttonAttackTime = 0;
+   }
+
+    private void PlayerLongAttack()
+    {
+        if (_buttonAttackTime > 0.2f)
+        {
+            //Debug.Log("Attack Ãë¼ÒµÊ!");
+            if (_playerController.trashList.Count > 0)
+            {
+                for (int i = 0; i < _playerController.trashList.Count; i++)
+                {
+                    GameObject shootObject = null;
+                    switch (_playerController.trashList[i])
+                    {
+
+                        case 1:
+                            shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                            shootObject.tag = "Trash";
+                            break;
+                        case 2:
+                            shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                            shootObject.tag = "Ice";
+                            break;
+                        case 3:
+                            shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                            shootObject.tag = "Banana";
+                            break;
+                        default:
+                            break;
+                    }
+                    Obstacle obstacle = shootObject.GetComponent<Obstacle>();
+                    obstacle.isAttack = true;
+                    obstacle.dir = transform.forward + transform.right * 0.2f * i;
+                    //shootObject.transform.GetChild(1).gameObject.SetActive(true);
+                }
+
+                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
+                _playMove.ChangetState(4);
+                _playerController.trashList.Clear();
+            }
+            else
+            {
+                _playMove.ChangetState(5);
+            }
+
+            _cleanerArea.SetActive(false);
+            _buttonAttack = false;
+            _buttonAttackTime = 0;
+        }
     }
 }
