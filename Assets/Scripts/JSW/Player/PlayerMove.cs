@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     public float slowSpeed;
     private float _nowSpeed;
     
-
     Rigidbody rigid;
 
     private int _numState = 0;
@@ -68,7 +67,7 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                _nowSpeed = 10;
+                _nowSpeed = 30;
             }
         }
         // 공격 반동
@@ -138,17 +137,17 @@ public class PlayerMove : MonoBehaviour
     {
         if (_numState == 5 && num == 5 && _stateTime > _dashTime - 0.1)
         {
-            _nowSpeed = 20;
+            _nowSpeed = 60;
             _stateTime = 0;
         }
         if (_numState == num) return;
-        if (_numState >= 1 && _numState <= 3 && (num == 4 || num ==5)) return;
+        if (_numState >= 1 && _numState <= 3 && (num == 4 || num == 5)) return;
         _stateTime = 0;
         _numState = num;
         if (_numState == 4 || _numState == 5)
         {
             _lastDir = inputVec;
-            _nowSpeed = 20;
+            _nowSpeed = 60;
         }
     }
 }

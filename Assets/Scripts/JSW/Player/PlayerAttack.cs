@@ -71,30 +71,9 @@ public class PlayerAttack : MonoBehaviour
         {
             if (_playerController.trashList.Count > 0)
             {
-                GameObject shootObject = null;
-                switch (_playerController.trashList[0])
-                {
+                InstantiateObstacle(0);
 
-                    case 1:
-                        shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
-                        shootObject.tag = "Trash";
-                        break;
-                    case 2:
-                        shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
-                        shootObject.tag = "Ice";
-                        break;
-                    case 3:
-                        shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
-                        shootObject.tag = "Banana";
-                        break;
-                    default:
-                        break;
-                }
-                Obstacle obstacle = shootObject.GetComponent<Obstacle>();
-                obstacle.isAttack = true;
-                obstacle.dir = transform.forward;
-
-                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
+                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.RemoveAt(0);
             }
@@ -116,32 +95,10 @@ public class PlayerAttack : MonoBehaviour
             {
                 for (int i = 0; i < _playerController.trashList.Count; i++)
                 {
-                    GameObject shootObject = null;
-                    switch (_playerController.trashList[i])
-                    {
-
-                        case 1:
-                            shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                            shootObject.tag = "Trash";
-                            break;
-                        case 2:
-                            shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                            shootObject.tag = "Ice";
-                            break;
-                        case 3:
-                            shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
-                            shootObject.tag = "Banana";
-                            break;
-                        default:
-                            break;
-                    }
-                    Obstacle obstacle = shootObject.GetComponent<Obstacle>();
-                    obstacle.isAttack = true;
-                    obstacle.dir = transform.forward + transform.right * 0.2f * i;
-                    //shootObject.transform.GetChild(1).gameObject.SetActive(true);
+                    InstantiateObstacle(i);
                 }
 
-                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
+                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.Clear();
             }
@@ -155,4 +112,30 @@ public class PlayerAttack : MonoBehaviour
             _buttonAttackTime = 0;
         }
     }
+
+    public void InstantiateObstacle(int num)
+    {
+        GameObject shootObject = null;
+        switch (_playerController.trashList[num])
+        {
+            case 1:
+                shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Trash";
+                break;
+            case 2:
+                shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Ice";
+                break;
+            case 3:
+                shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
+            default:
+                break;
+        }
+        Obstacle obstacle = shootObject.GetComponent<Obstacle>();
+        obstacle.isAttack = true;
+        obstacle.dir = transform.forward + transform.right * 0.2f * num;
+    }
+    
 }
