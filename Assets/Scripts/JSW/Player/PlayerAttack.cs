@@ -10,6 +10,8 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerController _playerController;
     private PlayerMove _playMove;
+    private float _buttonAttackTime;
+    private bool _buttonAttack;
 
     public GameObject trash;
     public GameObject ice;
@@ -30,6 +32,60 @@ public class PlayerAttack : MonoBehaviour
         _interactAction.canceled += OnInteractCanceled;
     }
 
+    private void Update()
+    {
+        if (_buttonAttack)
+        {
+            _buttonAttackTime += Time.deltaTime;
+            print(_buttonAttackTime);
+            if (_buttonAttackTime > 0.2f)
+            {
+                //Debug.Log("Attack √Îº“µ !");
+                if (_playerController.trashList.Count > 0)
+                {
+                    for (int i = 0; i < _playerController.trashList.Count; i++)
+                    {
+                        GameObject shootObject = null;
+                        switch (_playerController.trashList[i])
+                        {
+
+                            case 1:
+                                shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                                shootObject.tag = "Trash";
+                                break;
+                            case 2:
+                                shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                                shootObject.tag = "Ice";
+                                break;
+                            case 3:
+                                shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                                shootObject.tag = "Banana";
+                                break;
+                            default:
+                                break;
+                        }
+                        Obstacle obstacle = shootObject.GetComponent<Obstacle>();
+                        obstacle.isAttack = true;
+                        obstacle.dir = transform.forward + transform.right * 0.2f * i;
+                        //shootObject.transform.GetChild(1).gameObject.SetActive(true);
+                    }
+
+                    Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
+                    _playMove.ChangetState(4);
+                    _playerController.trashList.Clear();
+                }
+                else
+                {
+                    _playMove.ChangetState(5);
+                }
+                _cleanerArea.SetActive(false);
+                _buttonAttack = false;
+                _buttonAttackTime = 0;
+            }
+
+        }
+    }
+
     void OnEnable()
     {
         _interactAction?.Enable();
@@ -45,25 +101,30 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnInteractPerformed(InputAction.CallbackContext context)
     {
- 
-        if (_playerController.trashList.Count > 0)
+        _buttonAttack = true;
+    } 
+
+    private void OnInteractCanceled(InputAction.CallbackContext context)
+    {
+        if (!_buttonAttack) return;
+        if(_buttonAttackTime <= 0.2f)
         {
-            for (int i = 0; i < _playerController.trashList.Count; i++)
+            if (_playerController.trashList.Count > 0)
             {
                 GameObject shootObject = null;
-                switch (_playerController.trashList[i])
+                switch (_playerController.trashList[0])
                 {
 
                     case 1:
-                        shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                        shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
                         shootObject.tag = "Trash";
                         break;
                     case 2:
-                        shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                        shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
                         shootObject.tag = "Ice";
                         break;
                     case 3:
-                        shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f * i, Quaternion.identity, trashListObject);
+                        shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.up * 0.2f, Quaternion.identity, trashListObject);
                         shootObject.tag = "Banana";
                         break;
                     default:
@@ -71,23 +132,18 @@ public class PlayerAttack : MonoBehaviour
                 }
                 Obstacle obstacle = shootObject.GetComponent<Obstacle>();
                 obstacle.isAttack = true;
-                obstacle.dir = transform.forward + transform.right * 0.2f * i;
-                //shootObject.transform.GetChild(1).gameObject.SetActive(true);
+                obstacle.dir = transform.forward;
+
+                Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.03f);
+                _playMove.ChangetState(4);
+                _playerController.trashList.RemoveAt(0);
             }
-
-            Camera.main.GetComponent<CameraController>().StartShake(0.2f,0.03f);
-            _playMove.ChangetState(4);
-            _playerController.trashList.Clear();
+            else
+            {
+                _playMove.ChangetState(5);
+            }
         }
-        else
-        {
-            _playMove.ChangetState(5);
-        }
-        _cleanerArea.SetActive(false);
-    } 
-
-    private void OnInteractCanceled(InputAction.CallbackContext context)
-    {
-        //Debug.Log("Attack √Îº“µ !");
+        _buttonAttack = false;
+        _buttonAttackTime = 0;
     }
 }

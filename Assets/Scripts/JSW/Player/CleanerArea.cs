@@ -8,7 +8,6 @@ public class CleanerArea : MonoBehaviour
     private PlayerController _playerController;
     private Transform _playerTransform;
     
-
     private List<Rigidbody> trashInRange = new List<Rigidbody>();
 
     private void Start()
@@ -21,9 +20,9 @@ public class CleanerArea : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            Rigidbody rb = other.attachedRigidbody;
-            if (rb != null && !trashInRange.Contains(rb))
-                trashInRange.Add(rb);
+            Rigidbody rigidbody = other.attachedRigidbody;
+            if (rigidbody != null && !trashInRange.Contains(rigidbody))
+                trashInRange.Add(rigidbody);
         }
     }
 
@@ -31,9 +30,9 @@ public class CleanerArea : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            Rigidbody rb = other.attachedRigidbody;
-            if (rb != null && trashInRange.Contains(rb))
-                trashInRange.Remove(rb);
+            Rigidbody rigidbody = other.attachedRigidbody;
+            if (rigidbody != null && trashInRange.Contains(rigidbody))
+                trashInRange.Remove(rigidbody);
         }
     }
 
@@ -41,28 +40,28 @@ public class CleanerArea : MonoBehaviour
     {
         for (int i = trashInRange.Count - 1; i >= 0; i--)
         {
-            var rb = trashInRange[i];
-            if (rb == null)
+            var rigidbody = trashInRange[i];
+            if (rigidbody == null)
             {
                 trashInRange.RemoveAt(i);
                 continue;
             }
 
-            Vector3 direction = (_playerTransform.position - rb.transform.position);
+            Vector3 direction = (_playerTransform.position - rigidbody.transform.position);
             float distance = direction.magnitude;
 
             if (distance < 1.5f && _playerController.trashList.Count < 5)
             {
-                _playerController.trashList.Add(rb.gameObject.GetComponent<Obstacle>().trashId);
+                _playerController.trashList.Add(rigidbody.gameObject.GetComponent<Obstacle>().trashId);
                 trashInRange.RemoveAt(i);
-                Destroy(rb.gameObject);
+                Destroy(rigidbody.gameObject);
                 continue;
             }
 
             float t = Mathf.Clamp01(1f - (distance / _suctionRange));
             float suctionSpeed = _maxSuctionSpeed * t;
 
-            rb.linearVelocity = direction.normalized * suctionSpeed;
+            rigidbody.linearVelocity = direction.normalized * suctionSpeed;
         }
     }
 }
