@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7481958560630811130}
   - component: {fileID: 7430129346318995545}
   - component: {fileID: 8041552867612092874}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,8 +192,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 1, z: 11}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 11, y: 10, z: 11}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1 &3162130789033469519
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 107461077093794105}
   - component: {fileID: 2999496262627595206}
   - component: {fileID: 1778681742624353595}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,8 +300,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 1, z: 11}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 11, y: 10, z: 11}
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!1 &3725176535691136491
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 3398741421439783819}
   - component: {fileID: 3710625248368403118}
   - component: {fileID: 1603666624086464580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,8 +408,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 1, z: 11}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 17, y: 5, z: 11}
+  m_Center: {x: 0, y: -2.5, z: 0}
 --- !u!1 &5116895766326590923
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 8334753401261445908}
   - component: {fileID: 41864525730387011}
   - component: {fileID: 6676383935957503266}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,8 +553,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 1, z: 11}
-  m_Center: {x: 0, y: -0.5, z: 0}
+  m_Size: {x: 17, y: 5, z: 11}
+  m_Center: {x: 0, y: -2.5, z: 0}
 --- !u!1 &7476354828553869004
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 4}
+  m_LocalScale: {x: 7, y: 7, z: 7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1026645051800738878}
