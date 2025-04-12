@@ -1,4 +1,4 @@
-using Unity.VisualScripting.Antlr3.Runtime.Collections;
+ï»¿using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
         _playerController = GetComponent<PlayerController>();
         _cleanerArea = GetComponentInChildren<CleanerArea>().gameObject;
 
-        // ÇöÀç Action Map¿¡¼­ Interact ¾×¼ÇÀ» °¡Á®¿È
+        // í˜„ì¬ Action Mapì—ì„œ Interact ì•¡ì…˜ì„ ê°€ì ¸ì˜´
         _interactAction = _playerInput.actions["Attack"];
 
         _interactAction.performed += OnInteractPerformed;
@@ -77,6 +77,7 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.RemoveAt(0);
+                _playerController.Update_Trash();
                 smoke.Play();
             }
             else
@@ -92,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_buttonAttackTime > 0.2f)
         {
-            //Debug.Log("Attack Ãë¼ÒµÊ!");
+            //Debug.Log("Attack ì·¨ì†Œë¨!");
             if (_playerController.trashList.Count > 0)
             {
                 for (int i = 0; i < _playerController.trashList.Count; i++)
@@ -103,6 +104,7 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.Clear();
+                _playerController.Update_Trash();
                 smoke.Play();
             }
             else
