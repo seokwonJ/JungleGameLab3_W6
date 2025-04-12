@@ -45,10 +45,30 @@ public class TrashBombManager : MonoBehaviour
             trash.tag = "Trash";
 
             Rigidbody rb = trash.GetComponent<Rigidbody>();
-            rb.useGravity = false;
 
-            FallingTrash fall = trash.AddComponent<FallingTrash>();
-            fall.gravityAccel = 30f;
+            // Obstacle 컴포넌트 설정
+            Obstacle obs = trash.GetComponent<Obstacle>();
+            if (obs != null)
+            {
+                obs.isAttack = true;
+                obs.dir = Vector3.down * 0.3f;
+            }
+
+            // Y 좌표가 0.5 이하일 때 태그를 Obstacle로 변경
+            StartCoroutine(CheckAndChangeTag(trash));
+        }
+    }
+
+    private IEnumerator CheckAndChangeTag(GameObject trash)
+    {
+        while (trash != null)
+        {
+            if (trash.transform.position.y <= 0.5f)
+            {
+                trash.tag = "Obstacle";
+                yield break; // 태그 변경 후 코루틴 종료
+            }
+            yield return null; // 다음 프레임까지 대기
         }
     }
 
