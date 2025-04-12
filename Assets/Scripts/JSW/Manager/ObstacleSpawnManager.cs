@@ -22,10 +22,10 @@ public class ObstacleSpawnManager : MonoBehaviour
         if (_respawnTime > _respawnTimeInterval)
         {
             int randObject = Random.Range(0, 3);
-            float posX = Random.Range(-9, 9);
-            float posZ = Random.Range(-4, 4);
+            float posX = Random.Range(-20, 20);
+            float posZ = Random.Range(-10, 10);
 
-            Instantiate(obstacleList[randObject], new Vector3(posX, 1, posZ), Quaternion.identity, trashListObject);
+            Instantiate(obstacleList[randObject], new Vector3(posX, 30, posZ), Quaternion.identity, trashListObject);
             _respawnTime = 0;
         }
     }
