@@ -62,8 +62,9 @@ public class ItemManager : MonoBehaviour
     {
         int scaleUp = 5;
         player.GetComponent<Rigidbody>().mass = 100;
-
-        while(true)
+        player.transform.GetChild(2).gameObject.SetActive(true);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;
+        while (true)
         {
             player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one * scaleUp, Time.deltaTime);
             if (Vector3.Distance(Vector3.one * scaleUp, player.transform.localScale) < 0.1f)
@@ -81,7 +82,7 @@ public class ItemManager : MonoBehaviour
 
         while (true)
         {
-            player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one, Time.deltaTime);
+            player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one, Time.deltaTime * 5);
             if (Vector3.Distance(player.transform.localScale, Vector3.one) < 0.1f)
             {
                 player.transform.localScale = Vector3.one;
@@ -89,7 +90,8 @@ public class ItemManager : MonoBehaviour
             }
             yield return null;
         }
-
+        player.transform.GetChild(2).gameObject.SetActive(false);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = true;
     }
 }
 
