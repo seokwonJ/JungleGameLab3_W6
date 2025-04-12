@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Awake()
     {
+        Dash_Smoke.Stop();
         _playerInput = GetComponent<PlayerInput>();
         _playMove = GetComponent<PlayerMove>();
         _playerController = GetComponent<PlayerController>();
@@ -85,13 +86,11 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
+                Dash_Smoke.Play();
                 _playMove.ChangetState(5);
             }
 
-            if(_playerController.trashList.Count == 0)
-            {
-                Dash_Smoke.Play();
-            }
+            
 
 
         }
@@ -119,13 +118,11 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
+                Dash_Smoke.Play();
                 _playMove.ChangetState(5);
             }
 
-            if (_playerController.trashList.Count == 0)
-            {
-                Dash_Smoke.Play();
-            }
+            
 
             _cleanerArea.SetActive(false);
             _buttonAttack = false;
