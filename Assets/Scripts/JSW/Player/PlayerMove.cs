@@ -66,11 +66,12 @@ public class PlayerMove : MonoBehaviour
             if (_stateTime > _bananaTime)
             {
                 ChangetState(0);
+                rigid.linearVelocity = Vector3.zero;
             }
             else
             {
                 _nowSpeed = 30;
-            }
+            } 
         }
         // 공격 반동
         else if (_numState == 4)

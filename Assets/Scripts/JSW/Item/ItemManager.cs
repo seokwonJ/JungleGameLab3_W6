@@ -63,6 +63,7 @@ public class ItemManager : MonoBehaviour
         int scaleUp = 5;
         player.GetComponent<Rigidbody>().mass = 100;
         player.transform.GetChild(2).gameObject.SetActive(true);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;
         while (true)
         {
             player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one * scaleUp, Time.deltaTime);
@@ -90,6 +91,7 @@ public class ItemManager : MonoBehaviour
             yield return null;
         }
         player.transform.GetChild(2).gameObject.SetActive(false);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = true;
     }
 }
 
