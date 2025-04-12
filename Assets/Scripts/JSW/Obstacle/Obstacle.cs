@@ -7,18 +7,18 @@ public class Obstacle : MonoBehaviour
     public Vector3 dir; 
     public bool isAttack;
 
-    private Rigidbody rb;
+    private Rigidbody _rigidBody;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
         if (isAttack)
         {
-            rb.linearVelocity = dir.normalized * speed;
+            _rigidBody.linearVelocity = dir.normalized * speed;
         }
         else
         {
@@ -27,7 +27,7 @@ public class Obstacle : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Player")) && transform.tag != "Obstacle")
+        if ((collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("GiantArea")) && transform.tag != "Obstacle")
         {
 
             ContactPoint contact = collision.GetContact(0);
@@ -35,10 +35,10 @@ public class Obstacle : MonoBehaviour
             Vector3 bounce = reflectDir * 3f; // 튕김 강도
 
             // 튕기는 효과 적용
-            if (rb != null)
+            if (_rigidBody != null)
             {
-                rb.linearVelocity = Vector3.zero;
-                rb.AddForce(bounce, ForceMode.Impulse);
+                _rigidBody.linearVelocity = Vector3.zero;
+                _rigidBody.AddForce(bounce, ForceMode.Impulse);
             }
 
             // 플레이어와 충돌한 경우 추가 처리

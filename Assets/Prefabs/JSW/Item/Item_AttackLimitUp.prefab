@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8715148721155396010}
   - component: {fileID: 5418443811781632352}
   - component: {fileID: 2836471436311595390}
-  - component: {fileID: 1409260284342819007}
+  - component: {fileID: 8812520603104397023}
   m_Layer: 0
   m_Name: Item_AttackLimitUp
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1409260284342819007
+--- !u!114 &8812520603104397023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,6 +118,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8609120237842762472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7627bdb83085084dbfdf1957862cf6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6139386e80fc4ed428b7a906061503ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

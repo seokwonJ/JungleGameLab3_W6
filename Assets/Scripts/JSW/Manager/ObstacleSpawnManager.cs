@@ -8,6 +8,7 @@ public class ObstacleSpawnManager : MonoBehaviour
     public Transform trashListObject;
     private float _respawnTimeInterval;
     private float _respawnTime;
+    private bool _isOverSoon;
     
 
     public void Start()
@@ -17,6 +18,12 @@ public class ObstacleSpawnManager : MonoBehaviour
     }
 
     private void Update()
+    {
+        if (_isOverSoon) return;
+        SpawnTrash();
+    }
+
+    private void SpawnTrash()
     {
         _respawnTime += Time.deltaTime;
         if (_respawnTime > _respawnTimeInterval)
@@ -29,4 +36,10 @@ public class ObstacleSpawnManager : MonoBehaviour
             _respawnTime = 0;
         }
     }
+
+    public void SetOverSoon(bool isOverSoon)
+    {
+        _isOverSoon = isOverSoon;
+    }
+    
 }

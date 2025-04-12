@@ -10,7 +10,6 @@ public class ItemSpawner : MonoBehaviour
 
     private void Update()
     {
-        print(_doGetItem);
         if (_doGetItem)
         {
             _nowTime += Time.deltaTime;
@@ -28,4 +27,6 @@ public class ItemSpawner : MonoBehaviour
     {
         _doGetItem = result;
     }
+
+
 }

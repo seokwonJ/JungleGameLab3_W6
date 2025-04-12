@@ -136,8 +136,6 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-
-
     public void ChangetState(int num)
     {
         if (_numState == 5 && num == 5 && _stateTime > _dashTime - 0.1)
