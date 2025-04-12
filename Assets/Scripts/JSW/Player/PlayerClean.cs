@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerClean : MonoBehaviour
@@ -13,8 +13,8 @@ public class PlayerClean : MonoBehaviour
     void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-
-        // ÇöÀç Action Map¿¡¼­ Interact ¾×¼ÇÀ» °¡Á®¿È
+        tornado.Stop();
+        // í˜„ì¬ Action Mapì—ì„œ Interact ì•¡ì…˜ì„ ê°€ì ¸ì˜´
         _interactAction = _playerInput.actions["Interact"];
 
         _interactAction.performed += OnInteractPerformed;
@@ -35,7 +35,7 @@ public class PlayerClean : MonoBehaviour
     {
         _interactAction?.Disable();
 
-        // ¸Ş¸ğ¸® ´©¼ö ¹æÁö¸¦ À§ÇØ Äİ¹é Á¦°Å
+        // ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ë°©ì§€ë¥¼ ìœ„í•´ ì½œë°± ì œê±°
         _interactAction.performed -= OnInteractPerformed;
         _interactAction.canceled -= OnInteractCanceled;
     }
