@@ -61,9 +61,12 @@ public class ItemManager : MonoBehaviour
     IEnumerator ScaleUp(GameObject player)
     {
         int scaleUp = 4;
-        player.GetComponent<Rigidbody>().mass = 100;
-        player.transform.GetChild(2).gameObject.SetActive(true);
-        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;
+        player.GetComponent<Rigidbody>().mass = 100;                                // 쓰레기들 때문에 날아가지 않도록
+        player.transform.GetChild(2).gameObject.SetActive(true);                    // 거인 area
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;   // 빨아들이지 못하도록
+        player.layer = LayerMask.NameToLayer("Giant");
+
+
         while (true)
         {
             player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one * scaleUp, Time.deltaTime);
@@ -79,6 +82,7 @@ public class ItemManager : MonoBehaviour
 
         scaleUp = 1;
         player.GetComponent<Rigidbody>().mass = 1;
+        player.layer = LayerMask.NameToLayer("Player");
 
         while (true)
         {
