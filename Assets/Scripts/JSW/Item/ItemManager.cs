@@ -60,7 +60,7 @@ public class ItemManager : MonoBehaviour
 
     IEnumerator ScaleUp(GameObject player)
     {
-        int scaleUp = 5;
+        int scaleUp = 4;
         player.GetComponent<Rigidbody>().mass = 100;
         player.transform.GetChild(2).gameObject.SetActive(true);
         player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;

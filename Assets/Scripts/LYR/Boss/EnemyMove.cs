@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class BossMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour
 {
     float moveSpeed = 5f; // 이동 속도
     float rotationSpeed = 720f;
@@ -11,8 +11,9 @@ public class BossMove : MonoBehaviour
     float timer = 0f;
     bool isLockedOnTarget = false; // 타겟 잠금 여부
     float maxDistance = 10f; // 최대 거리 (10 유닛)
-    BossController _bosscontroller;
+    EnemyController _enemyontroller;
     bool hasShot = false;
+    bool isShooting = false;
     Rigidbody bossRb;
     Rigidbody obRb;
 
@@ -22,14 +23,11 @@ public class BossMove : MonoBehaviour
 
     public Transform trashListObject;
     public GameObject player;
-    Vector3 offset = new Vector3(0f, 0f, 2.6f);
 
-    public int maxTrash = 5;
-    public float diffusionRange=0.3f;
 
     void Start()
     {
-        _bosscontroller = GetComponent<BossController>();
+        _enemyontroller = GetComponent<EnemyController>();
         bossRb = GetComponent<Rigidbody>();
         
     }
@@ -48,22 +46,26 @@ public class BossMove : MonoBehaviour
         }
 
         // 가장 가까운 Obstacle이 있으면 이동
-        if (nearestObstacle != null)
+        if (nearestObstacle != null && !isShooting)
         {
             RotateTowardsObstacle();
             MoveTowardsObstacle();
         }
 
-        if (_bosscontroller.bossTrashList.Count >= maxTrash && !hasShot)
+        if (_enemyontroller.enemyTrashList.Count >= 1 && !hasShot)
         {
-            ShootTrash();
+            isShooting = true;
+            Invoke("ShootTrash", 1f);
             hasShot = true;
         }
 
-        if (_bosscontroller.bossTrashList.Count == 0)
+        if (_enemyontroller.enemyTrashList.Count == 0)
         {
             hasShot = false;
         }
+
+
+
     }
 
     bool IsTargetTooFar()
@@ -166,10 +168,10 @@ public class BossMove : MonoBehaviour
             targetDir = (targetPos - transform.position).normalized;
         }
 
-        for (int i = 0; i < _bosscontroller.bossTrashList.Count; i++)
+        for (int i = 0; i < _enemyontroller.enemyTrashList.Count; i++)
         {
             GameObject shootObj = null;
-            int trashId = _bosscontroller.bossTrashList[i];
+            int trashId = _enemyontroller.enemyTrashList[i];
 
             switch (trashId)
             {
@@ -191,10 +193,23 @@ public class BossMove : MonoBehaviour
             {
                 Obstacle obs = shootObj.GetComponent<Obstacle>();
                 obs.isAttack = true;
-                obs.dir = targetDir + Vector3.right * diffusionRange * (i - 2);
+                obs.dir = targetDir + Vector3.right * 0.3f * (i - 2);
             }
         }
 
-        _bosscontroller.bossTrashList.Clear();
+        _enemyontroller.enemyTrashList.Clear();
+        isShooting = false;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Trash") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Banana"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+    }
+
+
 }
+

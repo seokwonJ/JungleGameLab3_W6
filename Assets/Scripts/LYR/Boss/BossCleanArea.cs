@@ -11,6 +11,8 @@ public class BossCleanArea : MonoBehaviour
 
     List<Rigidbody> trashList = new List<Rigidbody>();
 
+    public int maxTrash = 5;
+
     void Start()
     {
         _bossTransform = transform.parent;
@@ -20,7 +22,7 @@ public class BossCleanArea : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
-            Debug.Log("보스 클리너에 장애물 감지됨: " + other.name);
+            //Debug.Log("보스 클리너에 장애물 감지됨: " + other.name);
             Rigidbody trashRb = other.attachedRigidbody;
             if ( trashRb != null && !trashList.Contains(trashRb))
             {
@@ -54,7 +56,7 @@ public class BossCleanArea : MonoBehaviour
             Vector3 direction = (_bossTransform.position - trashrRB.transform.position);
             float distance = direction.magnitude;
             //오브젝트 흡수
-            if (distance < 3.4f && _bossController.bossTrashList.Count < 5)
+            if (distance < 3.5f && _bossController.bossTrashList.Count < maxTrash)
             {
                 _bossController.bossTrashList.Add(trashrRB.gameObject.GetComponent<Obstacle>().trashId);
                 
