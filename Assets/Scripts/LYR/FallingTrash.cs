@@ -9,14 +9,14 @@ public class FallingTrash : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.down * 2f; // 초기 속도
+        rb.linearVelocity = Vector3.down * 2f; // 초기 속도
     }
 
     void FixedUpdate()
     {
         if (!hasLanded)
         {
-            rb.velocity += Vector3.down * gravityAccel * Time.fixedDeltaTime;
+            rb.linearVelocity += Vector3.down * gravityAccel * Time.fixedDeltaTime;
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MapPatten : MonoBehaviour
+public class PushCubeManager : MonoBehaviour
 
 {
     public GameObject pushCubePrefab;

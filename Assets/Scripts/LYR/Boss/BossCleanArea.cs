@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossCleanArea : MonoBehaviour
 {
-    private float _maxSuctionSpeed = 4f;
-    private float _suctionRange = 3f;
+    private float _maxSuctionSpeed = 10f;
+    private float _suctionRange = 7f;
     BossController _bossController;
     Transform _bossTransform;
 
@@ -53,7 +53,8 @@ public class BossCleanArea : MonoBehaviour
 
             Vector3 direction = (_bossTransform.position - trashrRB.transform.position);
             float distance = direction.magnitude;
-            if (distance < 3f && _bossController.bossTrashList.Count < 5)
+            //오브젝트 흡수
+            if (distance < 3.4f && _bossController.bossTrashList.Count < 5)
             {
                 _bossController.bossTrashList.Add(trashrRB.gameObject.GetComponent<Obstacle>().trashId);
                 

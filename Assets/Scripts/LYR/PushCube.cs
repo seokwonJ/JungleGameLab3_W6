@@ -11,7 +11,7 @@ public class PushCube : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
-        targetPos = startPos + Vector3.right * moveDistance;
+        targetPos = startPos + Vector3.left * moveDistance;
     }
 
     void Update()
@@ -29,7 +29,7 @@ public class PushCube : MonoBehaviour
     {
         if (other.attachedRigidbody != null && other.gameObject.layer != LayerMask.NameToLayer("MapBoundary"))
         {
-            Vector3 pushDir = Vector3.right;
+            Vector3 pushDir = Vector3.left;
             other.attachedRigidbody.AddForce(pushDir * 10f, ForceMode.Force);
         }
     }

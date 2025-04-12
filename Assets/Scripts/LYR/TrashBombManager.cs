@@ -56,6 +56,10 @@ public class TrashBombManager : MonoBehaviour
     {
         Vector2 randCircle = Random.insideUnitCircle * radius;
         Vector3 targetPos = playerTransform.position + new Vector3(randCircle.x, 0, randCircle.y);
+
+        targetPos.x = Mathf.Clamp(targetPos.x, -25f, 25f);
+        targetPos.z = Mathf.Clamp(targetPos.z, -15f, 15f);
+
         DropTrashAtPosition(targetPos);
     }
 }

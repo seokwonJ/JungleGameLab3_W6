@@ -13,6 +13,8 @@ public class BossMove : MonoBehaviour
     float maxDistance = 10f; // 최대 거리 (10 유닛)
     BossController _bosscontroller;
     bool hasShot = false;
+    Rigidbody bossRb;
+    Rigidbody obRb;
 
     public GameObject trash;
     public GameObject ice;
@@ -20,13 +22,17 @@ public class BossMove : MonoBehaviour
 
     public Transform trashListObject;
     public GameObject player;
+    Vector3 offset = new Vector3(0f, 0f, 2.6f);
+
 
     void Start()
     {
         _bosscontroller = GetComponent<BossController>();
+        bossRb = GetComponent<Rigidbody>();
+        
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
         if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
@@ -73,14 +79,21 @@ public class BossMove : MonoBehaviour
         float minDistance = Mathf.Infinity;
         Vector3 currentPos = transform.position;
 
-        // 가장 가까운 Obstacle 찾기
+        // 가장 가까운 Obstacle 찾기 (특정 범위 내에서)
         foreach (GameObject obstacle in obstacles)
         {
-            float distance = (obstacle.transform.position - currentPos).sqrMagnitude;
-            if (distance < minDistance)
+            Vector3 obsPos = obstacle.transform.position;
+            // 범위 조건: X(-30~30), Y(0 이상), Z(-20~20)
+            if (obsPos.x >= -30f && obsPos.x <= 30f &&
+                obsPos.y >= 0f && obsPos.y < 2.4f &&
+                obsPos.z >= -20f && obsPos.z <= 20f)
             {
-                minDistance = distance;
-                nearestObstacle = obstacle;
+                float distance = (obsPos - currentPos).sqrMagnitude;
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestObstacle = obstacle;
+                }
             }
         }
 
@@ -101,8 +114,11 @@ public class BossMove : MonoBehaviour
         Vector3 direction = (nearestObstacle.transform.position - transform.position).normalized;
         if (direction != Vector3.zero)
         {
+
+            Vector3 flatDirection = new Vector3(direction.x, 0, direction.z).normalized;
+
             // 목표 방향으로 회전
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            Quaternion targetRotation = Quaternion.LookRotation(flatDirection);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
@@ -113,18 +129,40 @@ public class BossMove : MonoBehaviour
 
     void MoveTowardsObstacle()
     {
+        obRb = nearestObstacle.GetComponent<Rigidbody>();
+
         // 목표 방향으로 이동
-        Vector3 targetPos = nearestObstacle.transform.position;
-        transform.position = Vector3.MoveTowards(
+        Vector3 targetPos = obRb.position;
+        Vector3 moveTarget = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+        Vector3 direction = (moveTarget - transform.position).normalized;
+        Vector3 velocity = direction * moveSpeed;
+
+        bossRb.MovePosition(transform.position + velocity * Time.deltaTime);
+
+/*        transform.position = Vector3.MoveTowards(
             transform.position,
             targetPos,
             moveSpeed * Time.deltaTime
-        );
+        );*/
     }
 
     void ShootTrash()
     {
-        Vector3 playerDir = (player.transform.position - transform.position).normalized;
+        Vector3 targetDir;
+
+        // 플레이어의 x 위치에 따라 발사 방향 결정
+        if (player.transform.position.x <= 0)
+        {
+            // 플레이어 방향
+            targetDir = (player.transform.position - transform.position).normalized;
+        }
+        else
+        {
+            // 랜덤 위치 (x = -29, y = 1.67, z = -18~18)
+            float randomZ = Random.Range(-18f, 18f);
+            Vector3 targetPos = new Vector3(-29f, 1.67f, randomZ);
+            targetDir = (targetPos - transform.position).normalized;
+        }
 
         for (int i = 0; i < _bosscontroller.bossTrashList.Count; i++)
         {
@@ -134,15 +172,15 @@ public class BossMove : MonoBehaviour
             switch (trashId)
             {
                 case 1:
-                    shootObj = Instantiate(trash, transform.position + Vector3.up * 0.3f * i, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(trash, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Trash";
                     break;
                 case 2:
-                    shootObj = Instantiate(ice, transform.position + Vector3.up * 0.3f * i, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(ice, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Ice";
                     break;
                 case 3:
-                    shootObj = Instantiate(banana, transform.position + Vector3.up * 0.3f * i, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(banana, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Banana";
                     break;
             }
@@ -151,9 +189,8 @@ public class BossMove : MonoBehaviour
             {
                 Obstacle obs = shootObj.GetComponent<Obstacle>();
                 obs.isAttack = true;
-                obs.dir = playerDir + Vector3.right * 0.2f * (i - 2);
+                obs.dir = targetDir + Vector3.right * 0.3f * (i - 2);
             }
-
         }
 
         _bosscontroller.bossTrashList.Clear();
