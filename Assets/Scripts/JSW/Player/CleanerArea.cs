@@ -23,7 +23,10 @@ public class CleanerArea : MonoBehaviour
         {
             Rigidbody rigidbody = other.attachedRigidbody;
             if (rigidbody != null && !_trashInRange.Contains(rigidbody))
+            {
                 _trashInRange.Add(rigidbody);
+            }
+                
         }
     }
 
@@ -54,8 +57,10 @@ public class CleanerArea : MonoBehaviour
             if (distance < 3f && _playerController.trashList.Count < _attackLimit)
             {
                 _playerController.trashList.Add(rigidbody.gameObject.GetComponent<Obstacle>().trashId);
+                _playerController.Update_Trash();
                 _trashInRange.RemoveAt(i);
                 Destroy(rigidbody.gameObject);
+
                 continue;
             }
 
