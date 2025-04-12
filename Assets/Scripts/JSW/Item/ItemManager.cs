@@ -6,28 +6,33 @@ public class ItemManager : MonoBehaviour
     private int _attackLimit;
     private int _attackLimitUp = 10;
     private int _speedUp = 3;
+    private ItemSpawner _itemSpawner;
+
+    private void Start()
+    {
+        _itemSpawner = GetComponent<ItemSpawner>();
+    }
 
     // 공격 한도 증가
     public void Start_AttackLimitUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(AttackLimitUp(player));
     }
 
     IEnumerator AttackLimitUp(GameObject player)
-    {
-        print("Player");
+    {;
         CleanerArea cleanerArea = player.transform.GetChild(0).GetComponent<CleanerArea>();
         _attackLimit = cleanerArea.GetAttackLimit();
         cleanerArea.SetAttackLimit(_attackLimitUp);
         yield return new WaitForSeconds(5f);
         cleanerArea.SetAttackLimit(_attackLimit);
-        print("return");
     }
 
-    // 공격 한도 증가
-
+    // 속도 증가
     public void Start_SpeedUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(SpeedUp(player));
     }
 
@@ -46,8 +51,10 @@ public class ItemManager : MonoBehaviour
         print("return");
     }
 
+    // 크기 증가
     public void Start_ScaleUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(ScaleUp(player));
     }
 
