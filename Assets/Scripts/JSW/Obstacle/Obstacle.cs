@@ -42,7 +42,7 @@ public class Obstacle : MonoBehaviour
             }
 
             // 플레이어와 충돌한 경우 추가 처리
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            if (collision.gameObject.tag == "Player")
             {
                 ChangePlayerState(collision.gameObject);
             }

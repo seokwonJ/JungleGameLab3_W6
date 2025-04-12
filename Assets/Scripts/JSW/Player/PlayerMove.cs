@@ -109,7 +109,13 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = new Vector3(inputVec.x, 0, inputVec.z);
         Vector3 nextVec = moveDir.normalized * _nowSpeed * Time.fixedDeltaTime;
-        rigid.MovePosition(rigid.position + nextVec);
+
+        if (!Physics.Raycast(rigid.position, moveDir, out RaycastHit hit, nextVec.magnitude + 0.1f))
+        {
+            rigid.MovePosition(rigid.position + nextVec);
+        }
+        //rigid.MovePosition(rigid.position + nextVec);
+
 
         // 회전
         if (moveDir != Vector3.zero && (_numState != 4 && _numState != 5))
