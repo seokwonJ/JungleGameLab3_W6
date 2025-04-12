@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject ice;
     public GameObject banana;
     public Transform trashListObject;
+    public ParticleSystem smoke;
 
     void Awake()
     {
@@ -76,6 +77,7 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.RemoveAt(0);
+                smoke.Play();
             }
             else
             {
@@ -101,6 +103,7 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.Clear();
+                smoke.Play();
             }
             else
             {

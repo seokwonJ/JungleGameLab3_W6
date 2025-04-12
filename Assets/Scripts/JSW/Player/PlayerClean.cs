@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerClean : MonoBehaviour
 {
+    public ParticleSystem tornado;
     private GameObject _cleanerArea;
     private PlayerInput _playerInput;
     private InputAction _interactAction;
     private PlayerController _playerController;
+    
 
     void Awake()
     {
@@ -41,10 +43,12 @@ public class PlayerClean : MonoBehaviour
     private void OnInteractPerformed(InputAction.CallbackContext context)
     {
         _cleanerArea?.SetActive(true);
+        tornado.Play();
     }
 
     private void OnInteractCanceled(InputAction.CallbackContext context)
     {
         _cleanerArea?.SetActive(false);
+        tornado.Stop();
     }
 }
