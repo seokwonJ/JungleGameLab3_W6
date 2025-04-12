@@ -36,6 +36,7 @@ public class PlayerMove : MonoBehaviour
         // 잠깐 스턴 및 아이템 떨구기 (action으로 invoke하면 좋을 듯)
         else if (_numState == 1)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _stunTime)
             {
@@ -49,6 +50,7 @@ public class PlayerMove : MonoBehaviour
         // 일정시간 느려지기
         else if (_numState == 2)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _iceTime)
             {
@@ -62,15 +64,17 @@ public class PlayerMove : MonoBehaviour
         // 미끄러지기
         else if (_numState == 3)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _bananaTime)
             {
                 ChangetState(0);
+                rigid.linearVelocity = Vector3.zero;
             }
             else
             {
                 _nowSpeed = 30;
-            }
+            } 
         }
         // 공격 반동
         else if (_numState == 4)
@@ -90,6 +94,7 @@ public class PlayerMove : MonoBehaviour
         // 대쉬
         else if (_numState == 5)
         {
+
             _stateTime += Time.deltaTime;
             if (_stateTime > _dashTime)
             {
@@ -109,7 +114,13 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 moveDir = new Vector3(inputVec.x, 0, inputVec.z);
         Vector3 nextVec = moveDir.normalized * _nowSpeed * Time.fixedDeltaTime;
-        rigid.MovePosition(rigid.position + nextVec);
+
+        if (!Physics.Raycast(rigid.position, moveDir, out RaycastHit hit, nextVec.magnitude + 0.1f))
+        {
+            rigid.MovePosition(rigid.position + nextVec);
+        }
+        //rigid.MovePosition(rigid.position + nextVec);
+
 
         // 회전
         if (moveDir != Vector3.zero && (_numState != 4 && _numState != 5))
@@ -135,8 +146,6 @@ public class PlayerMove : MonoBehaviour
         {
         }
     }
-
-
 
     public void ChangetState(int num)
     {

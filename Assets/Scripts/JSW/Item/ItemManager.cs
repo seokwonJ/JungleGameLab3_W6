@@ -6,28 +6,33 @@ public class ItemManager : MonoBehaviour
     private int _attackLimit;
     private int _attackLimitUp = 10;
     private int _speedUp = 3;
+    private ItemSpawner _itemSpawner;
+
+    private void Start()
+    {
+        _itemSpawner = GetComponent<ItemSpawner>();
+    }
 
     // 공격 한도 증가
     public void Start_AttackLimitUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(AttackLimitUp(player));
     }
 
     IEnumerator AttackLimitUp(GameObject player)
-    {
-        print("Player");
+    {;
         CleanerArea cleanerArea = player.transform.GetChild(0).GetComponent<CleanerArea>();
         _attackLimit = cleanerArea.GetAttackLimit();
         cleanerArea.SetAttackLimit(_attackLimitUp);
         yield return new WaitForSeconds(5f);
         cleanerArea.SetAttackLimit(_attackLimit);
-        print("return");
     }
 
-    // 공격 한도 증가
-
+    // 속도 증가
     public void Start_SpeedUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(SpeedUp(player));
     }
 
@@ -46,17 +51,20 @@ public class ItemManager : MonoBehaviour
         print("return");
     }
 
+    // 크기 증가
     public void Start_ScaleUp(GameObject player)
     {
+        _itemSpawner.GetItem(true);
         StartCoroutine(ScaleUp(player));
     }
 
     IEnumerator ScaleUp(GameObject player)
     {
-        int scaleUp = 5;
+        int scaleUp = 4;
         player.GetComponent<Rigidbody>().mass = 100;
-
-        while(true)
+        player.transform.GetChild(2).gameObject.SetActive(true);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = false;
+        while (true)
         {
             player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one * scaleUp, Time.deltaTime);
             if (Vector3.Distance(Vector3.one * scaleUp, player.transform.localScale) < 0.1f)
@@ -74,7 +82,7 @@ public class ItemManager : MonoBehaviour
 
         while (true)
         {
-            player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one, Time.deltaTime);
+            player.transform.localScale = Vector3.Lerp(player.transform.localScale, Vector3.one, Time.deltaTime * 5);
             if (Vector3.Distance(player.transform.localScale, Vector3.one) < 0.1f)
             {
                 player.transform.localScale = Vector3.one;
@@ -82,7 +90,8 @@ public class ItemManager : MonoBehaviour
             }
             yield return null;
         }
-
+        player.transform.GetChild(2).gameObject.SetActive(false);
+        player.transform.GetChild(0).GetComponent<CleanerArea>().enabled = true;
     }
 }
 

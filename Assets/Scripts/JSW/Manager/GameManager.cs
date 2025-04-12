@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleObjectList;
     private float _time = 60;
     private bool isEnd;
+    private bool isTrashSpawn;
 
     // Update is called once per frame
     void Update()
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour
             isEnd = true;
             countingTrash();
         }
+        if (_time < 5 && !isTrashSpawn)
+        {
+            isTrashSpawn = true;
+            obstacleObjectList.GetComponent<ObstacleSpawnManager>().SetOverSoon(true);
+        }
     }
 
     void countingTrash()
@@ -32,6 +38,7 @@ public class GameManager : MonoBehaviour
         int p2Score = 0;
         for (int i = 0;i <obstacleObjectList.transform.childCount;i++)
         {
+            print(i);
             if (obstacleObjectList.transform.GetChild(i).position.x < 0)
             {
                 p1Score += 1;

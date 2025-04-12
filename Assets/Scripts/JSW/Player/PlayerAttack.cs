@@ -1,4 +1,4 @@
-using Unity.VisualScripting.Antlr3.Runtime.Collections;
+Ôªøusing Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,14 +19,18 @@ public class PlayerAttack : MonoBehaviour
     public Transform trashListObject;
     public ParticleSystem smoke;
 
+    public ParticleSystem Dash_Smoke;
+    
+
     void Awake()
     {
+        Dash_Smoke.Stop();
         _playerInput = GetComponent<PlayerInput>();
         _playMove = GetComponent<PlayerMove>();
         _playerController = GetComponent<PlayerController>();
         _cleanerArea = GetComponentInChildren<CleanerArea>().gameObject;
 
-        // «ˆ¿Á Action Mapø°º≠ Interact æ◊º«¿ª ∞°¡Æø»
+        // ÌòÑÏû¨ Action MapÏóêÏÑú Interact Ïï°ÏÖòÏùÑ Í∞ÄÏ†∏Ïò¥
         _interactAction = _playerInput.actions["Attack"];
 
         _interactAction.performed += OnInteractPerformed;
@@ -77,12 +81,18 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.RemoveAt(0);
+                _playerController.Update_Trash();
                 smoke.Play();
             }
             else
             {
+                Dash_Smoke.Play();
                 _playMove.ChangetState(5);
             }
+
+            
+
+
         }
         _buttonAttack = false;
         _buttonAttackTime = 0;
@@ -92,7 +102,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_buttonAttackTime > 0.2f)
         {
-            //Debug.Log("Attack √Îº“µ !");
+            //Debug.Log("Attack Ï∑®ÏÜåÎê®!");
             if (_playerController.trashList.Count > 0)
             {
                 for (int i = 0; i < _playerController.trashList.Count; i++)
@@ -103,12 +113,16 @@ public class PlayerAttack : MonoBehaviour
                 Camera.main.GetComponent<CameraController>().StartShake(0.2f, 0.05f);
                 _playMove.ChangetState(4);
                 _playerController.trashList.Clear();
+                _playerController.Update_Trash();
                 smoke.Play();
             }
             else
             {
+                Dash_Smoke.Play();
                 _playMove.ChangetState(5);
             }
+
+            
 
             _cleanerArea.SetActive(false);
             _buttonAttack = false;
@@ -140,5 +154,4 @@ public class PlayerAttack : MonoBehaviour
         obstacle.isAttack = true;
         obstacle.dir = transform.forward + transform.right * 0.2f * num;
     }
-    
 }
