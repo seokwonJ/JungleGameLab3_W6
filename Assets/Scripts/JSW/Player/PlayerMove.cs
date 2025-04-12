@@ -36,6 +36,7 @@ public class PlayerMove : MonoBehaviour
         // 잠깐 스턴 및 아이템 떨구기 (action으로 invoke하면 좋을 듯)
         else if (_numState == 1)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _stunTime)
             {
@@ -49,6 +50,7 @@ public class PlayerMove : MonoBehaviour
         // 일정시간 느려지기
         else if (_numState == 2)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _iceTime)
             {
@@ -62,6 +64,7 @@ public class PlayerMove : MonoBehaviour
         // 미끄러지기
         else if (_numState == 3)
         {
+            _animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _bananaTime)
             {
@@ -90,6 +93,7 @@ public class PlayerMove : MonoBehaviour
         // 대쉬
         else if (_numState == 5)
         {
+
             _stateTime += Time.deltaTime;
             if (_stateTime > _dashTime)
             {

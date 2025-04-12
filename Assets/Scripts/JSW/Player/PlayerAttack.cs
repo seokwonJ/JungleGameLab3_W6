@@ -19,6 +19,9 @@ public class PlayerAttack : MonoBehaviour
     public Transform trashListObject;
     public ParticleSystem smoke;
 
+    public ParticleSystem Dash_Smoke;
+    
+
     void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -84,6 +87,13 @@ public class PlayerAttack : MonoBehaviour
             {
                 _playMove.ChangetState(5);
             }
+
+            if(_playerController.trashList.Count == 0)
+            {
+                Dash_Smoke.Play();
+            }
+
+
         }
         _buttonAttack = false;
         _buttonAttackTime = 0;
@@ -110,6 +120,11 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 _playMove.ChangetState(5);
+            }
+
+            if (_playerController.trashList.Count == 0)
+            {
+                Dash_Smoke.Play();
             }
 
             _cleanerArea.SetActive(false);
