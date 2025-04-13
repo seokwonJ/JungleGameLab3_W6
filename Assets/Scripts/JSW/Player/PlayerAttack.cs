@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     public ParticleSystem smoke;
 
     public ParticleSystem Dash_Smoke;
-    
+
 
     void Awake()
     {
@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnInteractPerformed(InputAction.CallbackContext context)
     {
         _buttonAttack = true;
-    } 
+    }
 
     private void OnInteractCanceled(InputAction.CallbackContext context)
     {
@@ -70,8 +70,8 @@ public class PlayerAttack : MonoBehaviour
         PlayerShortAttack();
     }
 
-   private void PlayerShortAttack()
-   {
+    private void PlayerShortAttack()
+    {
         if (_buttonAttackTime <= 0.2f)
         {
             if (_playerController.trashList.Count > 0)
@@ -89,14 +89,10 @@ public class PlayerAttack : MonoBehaviour
                 Dash_Smoke.Play();
                 _playMove.ChangetState(5);
             }
-
-            
-
-
         }
         _buttonAttack = false;
         _buttonAttackTime = 0;
-   }
+    }
 
     private void PlayerLongAttack()
     {
@@ -122,8 +118,6 @@ public class PlayerAttack : MonoBehaviour
                 _playMove.ChangetState(5);
             }
 
-            
-
             _cleanerArea.SetActive(false);
             _buttonAttack = false;
             _buttonAttackTime = 0;
@@ -136,22 +130,26 @@ public class PlayerAttack : MonoBehaviour
         switch (_playerController.trashList[num])
         {
             case 1:
-                shootObject = Instantiate(trash, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(trash, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Trash";
                 break;
             case 2:
-                shootObject = Instantiate(ice, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(ice, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Ice";
                 break;
             case 3:
-                shootObject = Instantiate(banana, transform.position + transform.forward * 0.8f + transform.right * 0.2f * num, Quaternion.identity, trashListObject);
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(banana, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Banana";
                 break;
+
             default:
                 break;
         }
         Obstacle obstacle = shootObject.GetComponent<Obstacle>();
         obstacle.isAttack = true;
-        obstacle.dir = transform.forward + transform.right * 0.2f * num;
+        obstacle.dir = transform.forward;
     }
 }

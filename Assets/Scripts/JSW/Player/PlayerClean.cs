@@ -8,7 +8,7 @@ public class PlayerClean : MonoBehaviour
     private PlayerInput _playerInput;
     private InputAction _interactAction;
     private PlayerController _playerController;
-    
+
 
     void Awake()
     {

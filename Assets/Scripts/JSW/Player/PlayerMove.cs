@@ -5,9 +5,10 @@ public class PlayerMove : MonoBehaviour
 {
     public Vector3 inputVec;
     public float speed;
+    public float addSpeed;
     public float slowSpeed;
     private float _nowSpeed;
-    
+
     Rigidbody rigid;
 
     private int _numState = 0;
@@ -19,9 +20,11 @@ public class PlayerMove : MonoBehaviour
     private float _dashTime = 0.4f;
     private Vector3 _lastDir;
     private Animator _animator;
+    private PlayerController _playerController;
 
     private void Awake()
     {
+        _playerController = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
     }
@@ -31,12 +34,12 @@ public class PlayerMove : MonoBehaviour
         // 기본 상태
         if (_numState == 0)
         {
-            _nowSpeed = speed;
+            _nowSpeed = speed + addSpeed;
         }
         // 잠깐 스턴 및 아이템 떨구기 (action으로 invoke하면 좋을 듯)
         else if (_numState == 1)
         {
-            _animator.SetTrigger("Hit");
+            //_animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _stunTime)
             {
@@ -64,17 +67,19 @@ public class PlayerMove : MonoBehaviour
         // 미끄러지기
         else if (_numState == 3)
         {
-            _animator.SetTrigger("Hit");
+            //_animator.SetTrigger("Hit");
             _stateTime += Time.deltaTime;
             if (_stateTime > _bananaTime)
             {
                 ChangetState(0);
+                inputVec = _lastDir;
                 rigid.linearVelocity = Vector3.zero;
             }
             else
             {
+                inputVec = transform.forward;
                 _nowSpeed = 30;
-            } 
+            }
         }
         // 공격 반동
         else if (_numState == 4)
@@ -94,7 +99,6 @@ public class PlayerMove : MonoBehaviour
         // 대쉬
         else if (_numState == 5)
         {
-
             _stateTime += Time.deltaTime;
             if (_stateTime > _dashTime)
             {
@@ -138,17 +142,22 @@ public class PlayerMove : MonoBehaviour
         _animator.SetFloat("moveDirection_x", input.x * 2f);
         _animator.SetFloat("moveDirection_y", input.y * 2f); // z축이 전후 이동에 해당
 
-        if (_numState == 4 || _numState == 5)
+
+        if (_numState == 3 || _numState == 4 || _numState == 5)
         {
             _lastDir = inputVec;
-        }
-        else if (_numState != 3)
-        {
         }
     }
 
     public void ChangetState(int num)
     {
+        // 거인일 경우
+        if (gameObject.layer == LayerMask.NameToLayer("Giant"))
+        {
+            _numState = 0;
+            return;
+        }
+
         if (_numState == 5 && num == 5 && _stateTime > _dashTime - 0.1)
         {
             _nowSpeed = 60;
@@ -158,6 +167,20 @@ public class PlayerMove : MonoBehaviour
         if (_numState >= 1 && _numState <= 3 && (num == 4 || num == 5)) return;
         _stateTime = 0;
         _numState = num;
+        if (_numState >= 1 && _numState <= 3)
+        {
+            _playerController.DropObstacles();
+            _numState = 3; // 맞으면 무조건 미끄러지기
+        }
+
+        //if (_numState == 1)
+        //{
+        //    _animator.CrossFadeInFixedTime("Stun", 0.1f);
+        //}
+        if (_numState == 3)
+        {
+            _animator.CrossFadeInFixedTime("BananaSlide", 0.1f);
+        }
         if (_numState == 4 || _numState == 5)
         {
             _lastDir = inputVec;

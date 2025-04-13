@@ -17,7 +17,7 @@ public class ItemSpawner : MonoBehaviour
         if (_nowTime > _intervalTime)
         {
             _nowTime = 0;
-            int num = Random.Range(0, 3);
+            int num = Random.Range(0, 2);
             Instantiate(_itemList[num], Vector3.zero, Quaternion.identity);
             _doGetItem = false;
         }

@@ -6,12 +6,23 @@ public class Obstacle : MonoBehaviour
     public int speed;
     public Vector3 dir; 
     public bool isAttack;
+    public ParticleSystem hitParticle;
 
     private Rigidbody _rigidBody;
+    private bool _isRight;
 
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        if (transform.position.x > 0)
+        {
+            _isRight = true;
+        }
+        GameManager.Instance.UpdateScore(_isRight, 1);
     }
 
     void FixedUpdate()
@@ -20,9 +31,19 @@ public class Obstacle : MonoBehaviour
         {
             _rigidBody.linearVelocity = dir.normalized * speed;
         }
-        else
+
+        if (_isRight && transform.position.x < 0)
         {
-            //rb.linearVelocity = Vector2.zero;
+            GameManager.Instance.UpdateScore(_isRight, -1);
+            _isRight = false;
+            GameManager.Instance.UpdateScore(_isRight, 1);
+        }
+
+        if (!_isRight && transform.position.x > 0)
+        {
+            GameManager.Instance.UpdateScore(_isRight, -1);
+            _isRight = true;
+            GameManager.Instance.UpdateScore(_isRight, 1);
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -33,6 +54,8 @@ public class Obstacle : MonoBehaviour
             ContactPoint contact = collision.GetContact(0);
             Vector3 reflectDir = Vector3.Reflect(dir.normalized, contact.normal);
             Vector3 bounce = reflectDir * 3f; // 튕김 강도
+            hitParticle.transform.position = contact.point;
+            hitParticle.Play();
 
             // 튕기는 효과 적용
             if (_rigidBody != null)
@@ -50,8 +73,14 @@ public class Obstacle : MonoBehaviour
             // 튕김 상태와 이동 상태 전환
             isAttack = false;
             transform.tag = "Obstacle";
+
             //transform.GetChild(1).gameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.UpdateScore(_isRight, -1);
     }
 
     public virtual void ChangePlayerState(GameObject collisonPlayer)

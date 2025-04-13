@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CleanerArea : MonoBehaviour
 {
-    private float _maxSuctionSpeed = 10f;
-    private float _suctionRange = 7f;
+    private float _maxSuctionSpeed = 20f;
+    private float _suctionRange = 15f;
     private PlayerController _playerController;
     private Transform _playerTransform;
     
     private List<Rigidbody> _trashInRange = new List<Rigidbody>();
-    private int _attackLimit = 5;
+    private int _attackLimit = 50;
 
     private void Start()
     {

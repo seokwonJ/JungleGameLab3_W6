@@ -9,6 +9,7 @@ TagManager:
   - Banana
   - Obstacle
   - FxTemporaire
+  - Butangas
   layers:
   - Default
   - TransparentFX
@@ -39,8 +40,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Post Processing
+  - Giant
   - GiantArea
   m_SortingLayers:
   - name: Default
