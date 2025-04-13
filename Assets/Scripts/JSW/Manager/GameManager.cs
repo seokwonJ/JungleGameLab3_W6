@@ -1,8 +1,10 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,18 +15,32 @@ public class GameManager : MonoBehaviour
     public GameObject obstacleObjectList;
     public GameObject player1;
     public GameObject player2;
-    public GameObject endingCanvas;
-    public GameObject finishText;
-    public  float _time = 60;
+    public GameObject playerCanvas;
 
+    //Text
+    public GameObject finishText;
+    public GameObject ReadyText;
+    public GameObject GoText;
+
+    //Ending
+    public GameObject endingCanvas;
+    public VideoPlayer winVideoPlayer;
+    public VideoPlayer loseVideoPlayer;
+    public Texture winEnding_Texture;
+    public Texture loseEnding_Texture;
+
+
+    private float _time = 60;
     private bool _isHalf;
     private bool _isEnd;
     private bool _isTrashSpawn;
     private int _p1TrashCount = 0;
     private int _p2TrashCount = 0;
+    private bool _isStart;
     Animator _timeTextAnimator;
     Animator _trashNum1Animator;
     Animator _trashNum2Animator;
+    ObstacleSpawnManager _obstacleSpawnManager;
 
     public static GameManager Instance { get; private set; }
 
@@ -43,14 +59,18 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0;
         _timeTextAnimator = timeText.GetComponent<Animator>();
         _trashNum1Animator = p1ScoreText.GetComponent<Animator>();
         _trashNum2Animator = p2ScoreText.GetComponent<Animator>();
+        _obstacleSpawnManager = obstacleObjectList.GetComponent<ObstacleSpawnManager>();
+        _obstacleSpawnManager.SetOverSoon(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_isStart) return;
         if (_time < 0)
         {
             _timeTextAnimator.enabled = false;
@@ -76,7 +96,7 @@ public class GameManager : MonoBehaviour
         {
             _timeTextAnimator.Play("PlayTimer2", 0, 0f);
             _isTrashSpawn = true;
-            obstacleObjectList.GetComponent<ObstacleSpawnManager>().SetOverSoon(true);
+            _obstacleSpawnManager.SetOverSoon(true);
         }
 
         if (_time < 30 && !_isHalf)
@@ -97,16 +117,28 @@ public class GameManager : MonoBehaviour
     void countingTrash()
     {
         Time.timeScale = 0f;
+        playerCanvas.SetActive(false);
+        endingCanvas.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+
         if (_p1TrashCount < _p2TrashCount)
         {
             endingCanvas.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(0).GetChild(3).GetComponent<RawImage>().texture = winEnding_Texture;
+            endingCanvas.transform.GetChild(1).GetChild(3).GetComponent<RawImage>().texture = loseEnding_Texture;
         }
         else
         {
             endingCanvas.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(0).GetChild(3).GetComponent<RawImage>().texture = loseEnding_Texture;
+            endingCanvas.transform.GetChild(1).GetChild(3).GetComponent<RawImage>().texture = winEnding_Texture;
         }
+        winVideoPlayer.Play();
+        loseVideoPlayer.Play();
         restartButton.SetActive(true);
     }
 
@@ -131,5 +163,23 @@ public class GameManager : MonoBehaviour
             _trashNum1Animator.Play("TrashNumUpdate", 0, 0f);
             p1ScoreText.text = _p1TrashCount.ToString();
         }
+    }
+
+    public void GameStart()
+    {
+        Time.timeScale = 1;
+        StartCoroutine(GameStart_CO());
+    }
+
+    IEnumerator GameStart_CO()
+    {
+        ReadyText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        ReadyText.SetActive(false);
+        GoText.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        GoText.SetActive(false);
+        _isStart = true;
+        _obstacleSpawnManager.SetOverSoon(false);
     }
 }
