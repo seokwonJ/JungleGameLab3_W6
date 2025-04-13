@@ -9,7 +9,7 @@ public class CleanerArea : MonoBehaviour
     private Transform _playerTransform;
     
     private List<Rigidbody> _trashInRange = new List<Rigidbody>();
-    private int _attackLimit = 100;
+    private int _attackLimit = 50;
 
     private void Start()
     {

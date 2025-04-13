@@ -72,8 +72,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_vacuumMaterial == null) return;
 
-        int count = Mathf.Clamp(trashList.Count, 1, 100);
-        float lerpFactor = (count - 1) / 100f;
+        int count = Mathf.Clamp(trashList.Count, 1, 50);
+        float lerpFactor = (count - 1) / 50f;
         Color newColor = Color.Lerp(Color.green, Color.red, lerpFactor);
         _vacuumMaterial.color = newColor;
     }
