@@ -22,6 +22,7 @@ public class Obstacle : MonoBehaviour
         {
             _isRight = true;
         }
+        if (GameManager.Instance == null) return;
         GameManager.Instance.UpdateScore(_isRight, 1);
     }
 
@@ -31,6 +32,8 @@ public class Obstacle : MonoBehaviour
         {
             _rigidBody.linearVelocity = dir.normalized * speed;
         }
+
+        if (GameManager.Instance == null) return;
 
         if (_isRight && transform.position.x < 0)
         {
@@ -80,6 +83,7 @@ public class Obstacle : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (GameManager.Instance == null) return;
         GameManager.Instance.UpdateScore(_isRight, -1);
     }
 
