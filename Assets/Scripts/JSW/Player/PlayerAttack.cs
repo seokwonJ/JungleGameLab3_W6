@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     public ParticleSystem smoke;
 
     public ParticleSystem Dash_Smoke;
-    
+
 
     void Awake()
     {
@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
     private void OnInteractPerformed(InputAction.CallbackContext context)
     {
         _buttonAttack = true;
-    } 
+    }
 
     private void OnInteractCanceled(InputAction.CallbackContext context)
     {
@@ -70,8 +70,8 @@ public class PlayerAttack : MonoBehaviour
         PlayerShortAttack();
     }
 
-   private void PlayerShortAttack()
-   {
+    private void PlayerShortAttack()
+    {
         if (_buttonAttackTime <= 0.2f)
         {
             if (_playerController.trashList.Count > 0)
@@ -92,7 +92,7 @@ public class PlayerAttack : MonoBehaviour
         }
         _buttonAttack = false;
         _buttonAttackTime = 0;
-   }
+    }
 
     private void PlayerLongAttack()
     {

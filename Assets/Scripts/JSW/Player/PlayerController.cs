@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Renderer _vacuumRenderer;
     private Material _vacuumMaterial;
     private Coroutine _scaleCoroutine;
-    private Vector3 _baseScale; 
+    private Vector3 _baseScale;
     private void Start()
     {
         _trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().transform;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         if (_scaleCoroutine != null)
         {
             StopCoroutine(_scaleCoroutine);
-            Vacuum.transform.localScale = _baseScale; 
+            Vacuum.transform.localScale = _baseScale;
         }
 
         _baseScale = Vacuum.transform.localScale;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             switch (trashList[i])
             {
                 case 1:
-                    shootObject = Instantiate(trash, transform.position + Vector3.up * i * 0.05f + new Vector3(x,0,z), Quaternion.identity, _trashListObject);
+                    shootObject = Instantiate(trash, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
                     break;
                 case 2:
                     shootObject = Instantiate(ice, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);

@@ -15,14 +15,18 @@ public class GameManager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public GameObject endingCanvas;
+    public GameObject finishText;
 
     private float _time = 60;
+    private bool _isHalf;
     private bool _isEnd;
     private bool _isTrashSpawn;
     private int _p1TrashCount = 0;
     private int _p2TrashCount = 0;
+    Animator _timeTextAnimator;
     Animator _trashNum1Animator;
     Animator _trashNum2Animator;
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
@@ -40,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _timeTextAnimator = timeText.GetComponent<Animator>();
         _trashNum1Animator = p1ScoreText.GetComponent<Animator>();
         _trashNum2Animator = p2ScoreText.GetComponent<Animator>();
     }
@@ -47,17 +52,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_time  < 0)
+        if (_time < 0)
         {
+            _timeTextAnimator.enabled = false;
             if (!_isEnd)
             {
                 //Time.timeScale = 0f;
-                player1.GetComponent<PlayerController>().DropObstacles();
-                player2.GetComponent<PlayerController>().DropObstacles();
+
                 player1.GetComponent<PlayerInput>().enabled = false;
                 player2.GetComponent<PlayerInput>().enabled = false;
                 _isEnd = true;
-                Invoke("countingTrash", 2f);
+                finishText.SetActive(true);
+                Invoke("DropTrash", 1.5f);
             }
         }
         else
@@ -65,13 +71,29 @@ public class GameManager : MonoBehaviour
             _time -= Time.deltaTime;
             timeText.text = ((int)_time).ToString();
         }
-        if (_time < 5 && !_isTrashSpawn)
+
+
+        if (_time < 6 && !_isTrashSpawn)
         {
+            _timeTextAnimator.Play("PlayTimer2", 0, 0f);
             _isTrashSpawn = true;
             obstacleObjectList.GetComponent<ObstacleSpawnManager>().SetOverSoon(true);
         }
-    }
 
+        if (_time < 30 && !_isHalf)
+        {
+            _isHalf = true;
+            _timeTextAnimator.Play("PlayTimer", 0, 0f);
+        }
+
+    }
+    void DropTrash()
+    {
+        finishText.SetActive(false);
+        player1.GetComponent<PlayerController>().DropObstacles();
+        player2.GetComponent<PlayerController>().DropObstacles();
+        Invoke("countingTrash", 2f);
+    }
 
     void countingTrash()
     {

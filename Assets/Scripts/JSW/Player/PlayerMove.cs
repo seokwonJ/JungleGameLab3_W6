@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float addSpeed;
     public float slowSpeed;
     private float _nowSpeed;
-    
+
     Rigidbody rigid;
 
     private int _numState = 0;
@@ -79,7 +79,7 @@ public class PlayerMove : MonoBehaviour
             {
                 inputVec = transform.forward;
                 _nowSpeed = 30;
-            } 
+            }
         }
         // 공격 반동
         else if (_numState == 4)
@@ -141,7 +141,7 @@ public class PlayerMove : MonoBehaviour
 
         _animator.SetFloat("moveDirection_x", input.x * 2f);
         _animator.SetFloat("moveDirection_y", input.y * 2f); // z축이 전후 이동에 해당
-       
+
 
         if (_numState == 3 || _numState == 4 || _numState == 5)
         {
@@ -157,7 +157,7 @@ public class PlayerMove : MonoBehaviour
             _numState = 0;
             return;
         }
-   
+
         if (_numState == 5 && num == 5 && _stateTime > _dashTime - 0.1)
         {
             _nowSpeed = 60;

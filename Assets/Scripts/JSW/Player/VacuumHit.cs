@@ -11,7 +11,6 @@ public class VacuumHit : MonoBehaviour
 
     public void PlayerStateChange(int id)
     {
-        print("playerStateChange");
         _playerMove.ChangetState(id);
     }
 
