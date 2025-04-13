@@ -10,7 +10,7 @@ public class TutorialManager : MonoBehaviour
     int currTutorialIdx;
     PlayerController player1;
     PlayerController player2;
-    [SerializeField] ObstacleSpawnManager spawnManager;
+    ObstacleSpawnManager spawnManager;
 
     private void Awake()
     {
