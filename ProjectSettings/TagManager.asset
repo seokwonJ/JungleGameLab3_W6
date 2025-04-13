@@ -9,6 +9,7 @@ TagManager:
   - Banana
   - Obstacle
   - FxTemporaire
+  - Butangas
   layers:
   - Default
   - TransparentFX

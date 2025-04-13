@@ -10,16 +10,18 @@ public class PlayerController : MonoBehaviour
     public GameObject ice;
     public GameObject banana;
     private Transform _trashListObject;
+    private PlayerMove _playerMove;
 
     //이하 청소기 관련 애니메이션 코드와 같음.
     public GameObject Vacuum; // -> 청소기, 일단 public 으로 뺴둠;
     private Renderer _vacuumRenderer;
     private Material _vacuumMaterial;
     private Coroutine _scaleCoroutine;
-    private Vector3 _baseScale; 
+    private Vector3 _baseScale;
     private void Start()
     {
         _trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().transform;
+        _playerMove = GetComponent<PlayerMove>();
         _vacuumRenderer = Vacuum.GetComponent<Renderer>();
         _vacuumMaterial = _vacuumRenderer.material;
     }
@@ -29,13 +31,14 @@ public class PlayerController : MonoBehaviour
         if (_scaleCoroutine != null)
         {
             StopCoroutine(_scaleCoroutine);
-            Vacuum.transform.localScale = _baseScale; 
+            Vacuum.transform.localScale = _baseScale;
         }
 
         _baseScale = Vacuum.transform.localScale;
 
         _scaleCoroutine = StartCoroutine(AnimateVacuumScale());
         UpdateVacuumColor();
+        _playerMove.addSpeed = -trashList.Count * 0.1f;
     }
 
 
@@ -69,8 +72,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_vacuumMaterial == null) return;
 
-        int count = Mathf.Clamp(trashList.Count, 1, 5);
-        float lerpFactor = (count - 1) / 4f;
+        int count = Mathf.Clamp(trashList.Count, 1, 50);
+        float lerpFactor = (count - 1) / 50f;
         Color newColor = Color.Lerp(Color.green, Color.red, lerpFactor);
         _vacuumMaterial.color = newColor;
     }
@@ -87,7 +90,7 @@ public class PlayerController : MonoBehaviour
             switch (trashList[i])
             {
                 case 1:
-                    shootObject = Instantiate(trash, transform.position + Vector3.up * i * 0.05f + new Vector3(x,0,z), Quaternion.identity, _trashListObject);
+                    shootObject = Instantiate(trash, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
                     break;
                 case 2:
                     shootObject = Instantiate(ice, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
