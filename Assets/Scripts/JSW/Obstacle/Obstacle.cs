@@ -6,6 +6,7 @@ public class Obstacle : MonoBehaviour
     public int speed;
     public Vector3 dir; 
     public bool isAttack;
+    public ParticleSystem hitParticle;
 
     private Rigidbody _rigidBody;
 
@@ -33,6 +34,8 @@ public class Obstacle : MonoBehaviour
             ContactPoint contact = collision.GetContact(0);
             Vector3 reflectDir = Vector3.Reflect(dir.normalized, contact.normal);
             Vector3 bounce = reflectDir * 3f; // 튕김 강도
+            hitParticle.transform.position = contact.point;
+            hitParticle.Play();
 
             // 튕기는 효과 적용
             if (_rigidBody != null)
@@ -50,6 +53,8 @@ public class Obstacle : MonoBehaviour
             // 튕김 상태와 이동 상태 전환
             isAttack = false;
             transform.tag = "Obstacle";
+
+
             //transform.GetChild(1).gameObject.SetActive(false);
         }
     }

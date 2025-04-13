@@ -4,7 +4,15 @@ public class Trash : Obstacle
 {   
     public override void ChangePlayerState(GameObject collisonPlayer)
     {
+        print(collisonPlayer.name);
         GameObject player = collisonPlayer;
-        player.GetComponent<PlayerMove>().ChangetState(trashId);
+        if (player.GetComponent<PlayerMove>() != null)
+        {
+            player.GetComponent<PlayerMove>().ChangetState(trashId);
+        }
+        else
+        {
+            player.GetComponent<VacuumHit>().PlayerStateChange(trashId);
+        }
     }
 }

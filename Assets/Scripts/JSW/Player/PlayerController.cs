@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     //쓰레기 리스트
     public List<int> trashList = new List<int>();
-
-
+    public GameObject trash;
+    public GameObject ice;
+    public GameObject banana;
+    private Transform _trashListObject;
 
     //이하 청소기 관련 애니메이션 코드와 같음.
     public GameObject Vacuum; // -> 청소기, 일단 public 으로 뺴둠;
@@ -17,12 +19,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _baseScale; 
     private void Start()
     {
+        _trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().transform;
         _vacuumRenderer = Vacuum.GetComponent<Renderer>();
         _vacuumMaterial = _vacuumRenderer.material;
-    }
-    private void Update()
-    {
-
     }
 
     public void Update_Trash() // 외부에서 호출할 청소기 상황 업데이트 함수;
@@ -74,7 +73,32 @@ public class PlayerController : MonoBehaviour
         float lerpFactor = (count - 1) / 4f;
         Color newColor = Color.Lerp(Color.green, Color.red, lerpFactor);
         _vacuumMaterial.color = newColor;
+    }
 
 
+    public void DropObstacles()
+    {
+        GameObject shootObject = null;
+        for (int i = 0; i < trashList.Count; i++)
+        {
+            int x = Random.Range(-1, 2);
+            int z = Random.Range(-1, 2);
+
+            switch (trashList[i])
+            {
+                case 1:
+                    shootObject = Instantiate(trash, transform.position + Vector3.up * i * 0.05f + new Vector3(x,0,z), Quaternion.identity, _trashListObject);
+                    break;
+                case 2:
+                    shootObject = Instantiate(ice, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 3:
+                    shootObject = Instantiate(banana, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                default:
+                    break;
+            }
+        }
+        trashList.Clear();
     }
 }
