@@ -39,8 +39,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Post Processing
+  - Giant
   - GiantArea
   m_SortingLayers:
   - name: Default

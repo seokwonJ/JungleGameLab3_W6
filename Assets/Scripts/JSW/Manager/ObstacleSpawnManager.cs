@@ -13,7 +13,7 @@ public class ObstacleSpawnManager : MonoBehaviour
 
     public void Start()
     {
-        _respawnTimeInterval = 1;
+        _respawnTimeInterval = 0.3f;
         _respawnTime = 0;
     }
 
