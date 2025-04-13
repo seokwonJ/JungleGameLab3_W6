@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject player2;
     public GameObject endingCanvas;
     public GameObject finishText;
+    public  float _time = 60;
 
-    private float _time = 60;
     private bool _isHalf;
     private bool _isEnd;
     private bool _isTrashSpawn;
