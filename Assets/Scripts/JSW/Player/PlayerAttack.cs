@@ -131,19 +131,20 @@ public class PlayerAttack : MonoBehaviour
         {
             case 1:
                 if (num % 2 == 1) num *= -1;
-                shootObject = Instantiate(trash, transform.position + transform.forward * 1f + transform.right * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject = Instantiate(trash, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Trash";
                 break;
             case 2:
                 if (num % 2 == 1) num *= -1;
-                shootObject = Instantiate(ice, transform.position + transform.forward * 1f + transform.right * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject = Instantiate(ice, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Ice";
                 break;
             case 3:
                 if (num % 2 == 1) num *= -1;
-                shootObject = Instantiate(banana, transform.position + transform.forward * 1f + transform.right * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject = Instantiate(banana, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Banana";
                 break;
+
             default:
                 break;
         }
