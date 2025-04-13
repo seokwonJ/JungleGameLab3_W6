@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashId: 2
-  speed: 40
+  speed: 60
   dir: {x: 0, y: 0, z: 0}
   isAttack: 0
   hitParticle: {fileID: 2858830868624652535}

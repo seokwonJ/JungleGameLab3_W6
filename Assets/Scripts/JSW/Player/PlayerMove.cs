@@ -5,6 +5,7 @@ public class PlayerMove : MonoBehaviour
 {
     public Vector3 inputVec;
     public float speed;
+    public float addSpeed;
     public float slowSpeed;
     private float _nowSpeed;
     
@@ -33,7 +34,7 @@ public class PlayerMove : MonoBehaviour
         // 기본 상태
         if (_numState == 0)
         {
-            _nowSpeed = speed;
+            _nowSpeed = speed + addSpeed;
         }
         // 잠깐 스턴 및 아이템 떨구기 (action으로 invoke하면 좋을 듯)
         else if (_numState == 1)
@@ -169,12 +170,13 @@ public class PlayerMove : MonoBehaviour
         if (_numState >= 1 && _numState <= 3)
         {
             _playerController.DropObstacles();
+            _numState = 3; // 맞으면 무조건 미끄러지기
         }
 
-        if (_numState == 1)
-        {
-            _animator.CrossFadeInFixedTime("Stun", 0.1f);
-        }
+        //if (_numState == 1)
+        //{
+        //    _animator.CrossFadeInFixedTime("Stun", 0.1f);
+        //}
         if (_numState == 3)
         {
             _animator.CrossFadeInFixedTime("BananaSlide", 0.1f);

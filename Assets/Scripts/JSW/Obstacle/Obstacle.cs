@@ -9,10 +9,20 @@ public class Obstacle : MonoBehaviour
     public ParticleSystem hitParticle;
 
     private Rigidbody _rigidBody;
+    private bool _isRight;
 
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        if (transform.position.x > 0)
+        {
+            _isRight = true;
+        }
+        GameManager.Instance.UpdateScore(_isRight, 1);
     }
 
     void FixedUpdate()
@@ -21,9 +31,19 @@ public class Obstacle : MonoBehaviour
         {
             _rigidBody.linearVelocity = dir.normalized * speed;
         }
-        else
+
+        if (_isRight && transform.position.x < 0)
         {
-            //rb.linearVelocity = Vector2.zero;
+            GameManager.Instance.UpdateScore(_isRight, -1);
+            _isRight = false;
+            GameManager.Instance.UpdateScore(_isRight, 1);
+        }
+
+        if (!_isRight && transform.position.x > 0)
+        {
+            GameManager.Instance.UpdateScore(_isRight, -1);
+            _isRight = true;
+            GameManager.Instance.UpdateScore(_isRight, 1);
         }
     }
     private void OnCollisionEnter(Collision collision)
@@ -54,9 +74,13 @@ public class Obstacle : MonoBehaviour
             isAttack = false;
             transform.tag = "Obstacle";
 
-
             //transform.GetChild(1).gameObject.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.UpdateScore(_isRight, -1);
     }
 
     public virtual void ChangePlayerState(GameObject collisonPlayer)

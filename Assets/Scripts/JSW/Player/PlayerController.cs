@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject ice;
     public GameObject banana;
     private Transform _trashListObject;
+    private PlayerMove _playerMove;
 
     //이하 청소기 관련 애니메이션 코드와 같음.
     public GameObject Vacuum; // -> 청소기, 일단 public 으로 뺴둠;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().transform;
+        _playerMove = GetComponent<PlayerMove>();
         _vacuumRenderer = Vacuum.GetComponent<Renderer>();
         _vacuumMaterial = _vacuumRenderer.material;
     }
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
         _scaleCoroutine = StartCoroutine(AnimateVacuumScale());
         UpdateVacuumColor();
+        _playerMove.addSpeed = -trashList.Count * 0.1f;
     }
 
 
@@ -69,8 +72,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_vacuumMaterial == null) return;
 
-        int count = Mathf.Clamp(trashList.Count, 1, 5);
-        float lerpFactor = (count - 1) / 4f;
+        int count = Mathf.Clamp(trashList.Count, 1, 100);
+        float lerpFactor = (count - 1) / 100f;
         Color newColor = Color.Lerp(Color.green, Color.red, lerpFactor);
         _vacuumMaterial.color = newColor;
     }
