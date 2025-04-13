@@ -10245,10 +10245,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1538974708}
-  p1ScoreText: {fileID: 302935720}
-  p2ScoreText: {fileID: 1743865415}
+  p1ScoreText: {fileID: 0}
+  p2ScoreText: {fileID: 0}
   restartButton: {fileID: 734091060}
   obstacleObjectList: {fileID: 1000141875}
+  player1: {fileID: 1203686260}
+  player2: {fileID: 0}
+  endingCanvas: {fileID: 0}
+  finishText: {fileID: 0}
+  _time: 60
 --- !u!4 &1001278057
 Transform:
   m_ObjectHideFlags: 0
@@ -11301,6 +11306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashList: 
+  trash: {fileID: 0}
+  ice: {fileID: 0}
+  banana: {fileID: 0}
   Vacuum: {fileID: 1750418021}
 --- !u!114 &1203686262
 MonoBehaviour:
@@ -11347,6 +11355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputVec: {x: 0, y: 0, z: 0}
   speed: 12
+  addSpeed: 0
   slowSpeed: 5
 --- !u!54 &1203686265
 Rigidbody:

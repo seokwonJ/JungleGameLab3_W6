@@ -52,6 +52,14 @@ public class BossMove : MonoBehaviour
         {
             RotateTowardsObstacle();
             MoveTowardsObstacle();
+
+            // 보스와 타겟 사이에 선 그리기
+            Debug.DrawLine(transform.position, nearestObstacle.transform.position, Color.red, 0.1f);
+
+            // 거리 계산
+            float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
+            // 콘솔에 거리 출력 (옵션)
+            Debug.Log($"Distance to {nearestObstacle.name}: {distance:F2} units");
         }
 
         if (_bosscontroller.bossTrashList.Count >= maxTrash && !hasShot)
