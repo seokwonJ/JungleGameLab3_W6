@@ -21,14 +21,24 @@ public class EnemyMove : MonoBehaviour
     public GameObject ice;
     public GameObject banana;
 
-    public Transform trashListObject;
-    public GameObject player;
+    [SerializeField]
+    Transform trashListObject;
+    [SerializeField]
+    GameObject player;
 
 
+
+    private void Awake()
+    {
+        trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().gameObject.transform;
+        player = FindAnyObjectByType<PlayerMove>().gameObject;
+    }
     void Start()
     {
         _enemyontroller = GetComponent<EnemyController>();
         bossRb = GetComponent<Rigidbody>();
+
+
         
     }
 
