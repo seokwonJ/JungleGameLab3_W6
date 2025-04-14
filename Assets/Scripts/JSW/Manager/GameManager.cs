@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public GameObject playerCanvas;
+    public GameObject tutorialInput;
 
     //Text
     public GameObject finishText;
@@ -176,6 +177,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Time.timeScale = 1;
+        if (tutorialInput != null) tutorialInput.SetActive(false);
         StartCoroutine(GameStart_CO());
     }
 
