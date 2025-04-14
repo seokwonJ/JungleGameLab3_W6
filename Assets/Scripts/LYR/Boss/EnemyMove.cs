@@ -26,56 +26,60 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-
+    GameManager manager;
 
     private void Awake()
     {
         trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().gameObject.transform;
         player = FindAnyObjectByType<PlayerMove>().gameObject;
+
+        manager = FindAnyObjectByType<GameManager>();
     }
     void Start()
     {
         _enemyontroller = GetComponent<EnemyController>();
         bossRb = GetComponent<Rigidbody>();
 
-
+        
         
     }
 
     void FixedUpdate()
     {
-        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
-        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
+        if (!manager.isEnd)
         {
-            timer += Time.deltaTime;
-            if (timer >= searchInterval)
+            // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
+            if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
             {
-                FindNearestObstacle();
-                timer = 0f;
+                timer += Time.deltaTime;
+                if (timer >= searchInterval)
+                {
+                    FindNearestObstacle();
+                    timer = 0f;
+                }
             }
+
+            // 가장 가까운 Obstacle이 있으면 이동
+            if (nearestObstacle != null && !isShooting)
+            {
+                RotateTowardsObstacle();
+                MoveTowardsObstacle();
+            }
+
+            if (_enemyontroller.enemyTrashList.Count >= 1 && !hasShot)
+            {
+                isShooting = true;
+                Invoke("ShootTrash", 1f);
+                hasShot = true;
+            }
+
+            if (_enemyontroller.enemyTrashList.Count == 0)
+            {
+                hasShot = false;
+            }
+
+
         }
-
-        // 가장 가까운 Obstacle이 있으면 이동
-        if (nearestObstacle != null && !isShooting)
-        {
-            RotateTowardsObstacle();
-            MoveTowardsObstacle();
-        }
-
-        if (_enemyontroller.enemyTrashList.Count >= 1 && !hasShot)
-        {
-            isShooting = true;
-            Invoke("ShootTrash", 1f);
-            hasShot = true;
-        }
-
-        if (_enemyontroller.enemyTrashList.Count == 0)
-        {
-            hasShot = false;
-        }
-
-
-
     }
 
     bool IsTargetTooFar()

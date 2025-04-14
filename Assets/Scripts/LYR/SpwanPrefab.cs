@@ -11,6 +11,8 @@ public class ObjectPoolingSpawner : MonoBehaviour
     private float timer = 0f;
     private int objectsToSpawnAtOnce = 5;
 
+    GameManager manager;
+
     void Start()
     {
         objectPool = new List<GameObject>();
@@ -20,13 +22,16 @@ public class ObjectPoolingSpawner : MonoBehaviour
             obj.SetActive(false);
             objectPool.Add(obj);
         }
+
+        manager =FindAnyObjectByType<GameManager>();
     }
 
     void Update()
     {
+        
         timer += Time.deltaTime;
 
-        if (timer >= spawnInterval)
+        if (timer >= spawnInterval && !manager.isEnd)
         {
             SpawnMultiple();
             timer = 0f;

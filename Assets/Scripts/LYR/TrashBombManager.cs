@@ -11,12 +11,18 @@ public class TrashBombManager : MonoBehaviour
     public float bombInterval = 10f;
     private float timer;
 
+    GameManager manager;
+
+    private void Start()
+    {
+        manager = FindAnyObjectByType<GameManager>();
+    }
     void Update()
     {
         if (playerTransform == null) return;
 
         timer += Time.deltaTime;
-        if (timer >= bombInterval)
+        if (timer >= bombInterval && !manager.isEnd)
         {
             timer = 0f;
             DropAroundPlayer(playerTransform, 5f);

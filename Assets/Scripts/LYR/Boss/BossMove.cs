@@ -27,49 +27,55 @@ public class BossMove : MonoBehaviour
     public int maxTrash = 5;
     public float diffusionRange = 0.3f;
 
+    GameManager manager;
+
     void Start()
     {
         _bosscontroller = GetComponent<BossController>();
         bossRb = GetComponent<Rigidbody>();
+        manager = FindAnyObjectByType<GameManager>();
 
     }
     void FixedUpdate()
     {
-        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀거나, 거리가 1 이하일 때 새로운 타겟 검색
-        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar() || IsTargetTooClose() || IsTargetTooHigh())
+        if (!manager.isEnd)
         {
-            timer += Time.deltaTime;
-            if (timer >= searchInterval)
+            // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀거나, 거리가 1 이하일 때 새로운 타겟 검색
+            if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar() || IsTargetTooClose() || IsTargetTooHigh())
             {
-                FindNearestObstacle();
-                timer = 0f;
+                timer += Time.deltaTime;
+                if (timer >= searchInterval)
+                {
+                    FindNearestObstacle();
+                    timer = 0f;
+                }
             }
-        }
 
-        // 가장 가까운 Obstacle이 있으면 이동
-        if (nearestObstacle != null)
-        {
-            RotateTowardsObstacle();
-            MoveTowardsObstacle();
+            // 가장 가까운 Obstacle이 있으면 이동
+            if (nearestObstacle != null)
+            {
+                RotateTowardsObstacle();
+                MoveTowardsObstacle();
 
-            //거리 시각화
-            Debug.DrawLine(transform.position, nearestObstacle.transform.position, Color.red, 0.1f);
-            // 거리 계산
-            float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
-            //Debug.Log($"Distance to {nearestObstacle.name}: {distance:F2} units");
+                //거리 시각화
+                Debug.DrawLine(transform.position, nearestObstacle.transform.position, Color.red, 0.1f);
+                // 거리 계산
+                float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
+                //Debug.Log($"Distance to {nearestObstacle.name}: {distance:F2} units");
 
 
-        }
+            }
 
-        if (_bosscontroller.bossTrashList.Count >= maxTrash && !hasShot)
-        {
-            ShootTrash();
-            hasShot = true;
-        }
+            if (_bosscontroller.bossTrashList.Count >= maxTrash && !hasShot)
+            {
+                ShootTrash();
+                hasShot = true;
+            }
 
-        if (_bosscontroller.bossTrashList.Count == 0)
-        {
-            hasShot = false;
+            if (_bosscontroller.bossTrashList.Count == 0)
+            {
+                hasShot = false;
+            }
         }
     }
 
