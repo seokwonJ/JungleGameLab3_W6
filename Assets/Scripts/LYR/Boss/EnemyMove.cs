@@ -212,7 +212,7 @@ public class EnemyMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Trash") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Banana"))
         {
             gameObject.SetActive(false);
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 
