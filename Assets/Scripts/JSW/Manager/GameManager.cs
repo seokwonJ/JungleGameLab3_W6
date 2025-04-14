@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public GameObject playerCanvas;
+    public GameObject tutorialInput;
 
     //Text
     public GameObject finishText;
@@ -41,6 +43,9 @@ public class GameManager : MonoBehaviour
     Animator _trashNum1Animator;
     Animator _trashNum2Animator;
     ObstacleSpawnManager _obstacleSpawnManager;
+
+    public Action p1WinAction;
+    public Action p2WinAction;
 
     public static GameManager Instance { get; private set; }
 
@@ -79,7 +84,8 @@ public class GameManager : MonoBehaviour
                 //Time.timeScale = 0f;
 
                 player1.GetComponent<PlayerInput>().enabled = false;
-                player2.GetComponent<PlayerInput>().enabled = false;
+                if (player2.GetComponent<PlayerInput>() != null) player2.GetComponent<PlayerInput>().enabled = false;
+              
                 _isEnd = true;
                 finishText.SetActive(true);
                 Invoke("DropTrash", 1.5f);
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         finishText.SetActive(false);
         player1.GetComponent<PlayerController>().DropObstacles();
-        player2.GetComponent<PlayerController>().DropObstacles();
+        if (player2.GetComponent<PlayerController>() != null) player2.GetComponent<PlayerController>().DropObstacles();
         Invoke("countingTrash", 3f);
     }
 
@@ -125,6 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (_p1TrashCount < _p2TrashCount)
         {
+            p1WinAction?.Invoke();
             endingCanvas.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(0).GetChild(1).GetComponent<RawImage>().texture = winEnding_Texture;
@@ -132,6 +139,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            p2WinAction?.Invoke();
             endingCanvas.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
             endingCanvas.transform.GetChild(0).GetChild(1).GetComponent<RawImage>().texture = loseEnding_Texture;
@@ -169,6 +177,7 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Time.timeScale = 1;
+        if (tutorialInput != null) tutorialInput.SetActive(false);
         StartCoroutine(GameStart_CO());
     }
 
@@ -183,4 +192,5 @@ public class GameManager : MonoBehaviour
         _isStart = true;
         _obstacleSpawnManager.SetOverSoon(false);
     }
+
 }
