@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using TMPro;
@@ -31,6 +30,8 @@ public class TutorialPanel : MonoBehaviour
     public Func<bool> ExtraIF1P;
     public Func<bool> ExtraIF2P;
 
+    public bool isDebug = false;
+
     private void Start()
     {
         if(tutorialKeys1P.Length > 0)
@@ -51,7 +52,11 @@ public class TutorialPanel : MonoBehaviour
 
         bool check1P = CheckTutorial(tutorialKeys1P, holdDeltaTimes1P, ExtraIF1P);
         bool check2P = CheckTutorial(tutorialKeys2P, holdDeltaTimes2P, ExtraIF2P);
-
+        if(isDebug)
+        {
+            string msg = name + ".check1P: " + check1P + "\ncheck2P: " + check2P + "\nisComplete: " + isComplete;
+            Debug.Log(msg);
+        }
         if ((check1P || check2P) && !isComplete)
         {
             isComplete = true;
@@ -64,7 +69,7 @@ public class TutorialPanel : MonoBehaviour
         KeyInfo key;
         bool isAllUse = true;
         
-        for (int i = 0; i < tutorialKeys1P.Length; i++)
+        for (int i = 0; i < tutorialKeys.Length; i++)
         {
             key = tutorialKeys[i];
             if (key.isHold)
@@ -124,9 +129,17 @@ public class TutorialPanel : MonoBehaviour
         {
             holdDeltaTimes1P[i] = 0f;
         }
+        for (int i = 0; i < holdDeltaTimes2P.Length; i++)
+        {
+            holdDeltaTimes2P[i] = 0f;
+        }
         for (int i = 0; i < tutorialKeys1P.Length; i++)
         {
             tutorialKeys1P[i].isUse = false;
+        }
+        for (int i = 0; i < tutorialKeys2P.Length; i++)
+        {
+            tutorialKeys2P[i].isUse = false;
         }
         ExtraIF1P = null;
         ExtraIF2P = null;
@@ -183,60 +196,58 @@ public class TutorialPanel : MonoBehaviour
     }
 
 
-
-
-    #region Context Menu Function
-
-    [Header("Context Menu")]
-    public string keyName;
-
-    [ContextMenu("ShowPanel(true)")]
-    void TextShowPanelTrue()
-    {
-        ShowPanel(true);
-    }
-
-    [ContextMenu("ShowPanel(false)")]
-    void TextShowPanelFalse()
-    {
-        ShowPanel(false);
-    }
-
-    [ContextMenu("CompleteMission(false)")]
-    void CompleteMissionFalse()
-    {
-        CompleteMission(false);
-    }
-
-    [ContextMenu("CompleteMission(true)")]
-    void CompleteMissionTrue()
-    {
-        CompleteMission(true);
-    }
-
     [ContextMenu("ResetUsedKeys()")]
     void ResetUsedKeys()
     {
         Transform keyboard = transform.GetChild(1)?.GetChild(0);
-        if(keyboard != null)
+        if (keyboard != null)
         {
-            for(int i = 0; i < keyboard.childCount; i++)
+            for (int i = 0; i < keyboard.childCount; i++)
             {
                 UsedKey(keyboard.name + "/" + keyboard.GetChild(i).name, false);
             }
         }
     }
 
-    [ContextMenu("UsedKey(keyName, true)")]
-    void UsedKeyTrue()
-    {
-        UsedKey(keyName, true);
-    }
+    //#region Test Function
 
-    [ContextMenu("UsedKey(keyName, false)")]
-    void UsedKeyFalse()
-    {
-        UsedKey(keyName, false);
-    }
-    #endregion
+    //[Header("Context Menu")]
+    //public string keyName;
+
+    //[ContextMenu("ShowPanel(true)")]
+    //void TextShowPanelTrue()
+    //{
+    //    ShowPanel(true);
+    //}
+
+    //[ContextMenu("ShowPanel(false)")]
+    //void TextShowPanelFalse()
+    //{
+    //    ShowPanel(false);
+    //}
+
+    //[ContextMenu("CompleteMission(false)")]
+    //void CompleteMissionFalse()
+    //{
+    //    CompleteMission(false);
+    //}
+
+    //[ContextMenu("CompleteMission(true)")]
+    //void CompleteMissionTrue()
+    //{
+    //    CompleteMission(true);
+    //}
+
+    //[ContextMenu("UsedKey(keyName, true)")]
+    //void UsedKeyTrue()
+    //{
+    //    UsedKey(keyName, true);
+    //}
+
+    //[ContextMenu("UsedKey(keyName, false)")]
+    //void UsedKeyFalse()
+    //{
+    //    UsedKey(keyName, false);
+    //}
+    //#endregion
 }
