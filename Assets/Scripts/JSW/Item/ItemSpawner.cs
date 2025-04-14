@@ -18,7 +18,7 @@ public class ItemSpawner : MonoBehaviour
         {
             _nowTime = 0;
             int num = Random.Range(0, 2);
-            Instantiate(_itemList[num], Vector3.zero, Quaternion.identity);
+            Instantiate(_itemList[num], Vector3.zero + Vector3.up, Quaternion.identity);
             _doGetItem = false;
         }
     }
@@ -27,6 +27,4 @@ public class ItemSpawner : MonoBehaviour
     {
         _doGetItem = result;
     }
-
-
 }
