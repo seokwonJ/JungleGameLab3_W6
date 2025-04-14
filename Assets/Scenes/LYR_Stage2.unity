@@ -18915,8 +18915,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushCubePrefab: {fileID: 2525565257294401531, guid: 346e56a76190f1e41b87c7dfaa8e5a18, type: 3}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   spawnInterval: 15
   fixedX: 30
+=======
+  spawnInterval: 8
+  fixedX: 35
+>>>>>>> Stashed changes
 =======
   spawnInterval: 8
   fixedX: 35
@@ -18945,6 +18950,10 @@ SceneRoots:
   - {fileID: 1302019840}
   - {fileID: 926177405}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+  - {fileID: 98688421}
+>>>>>>> Stashed changes
 =======
   - {fileID: 98688421}
 >>>>>>> Stashed changes
