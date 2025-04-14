@@ -21,26 +21,22 @@ public class BossMove : MonoBehaviour
     public GameObject banana;
 
     public Transform trashListObject;
-    [SerializeField]
-    GameObject player;
+    public GameObject player;
     Vector3 offset = new Vector3(0f, 0f, 2.6f);
 
     public int maxTrash = 5;
-    public float diffusionRange=0.3f;
+    public float diffusionRange = 0.3f;
 
     void Start()
     {
         _bosscontroller = GetComponent<BossController>();
         bossRb = GetComponent<Rigidbody>();
 
-        player = FindAnyObjectByType<PlayerController>().gameObject;
-
     }
-
     void FixedUpdate()
     {
-        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
-        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
+        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀거나, 거리가 1 이하일 때 새로운 타겟 검색
+        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar() || IsTargetTooClose() || IsTargetTooHigh())
         {
             timer += Time.deltaTime;
             if (timer >= searchInterval)
@@ -56,13 +52,13 @@ public class BossMove : MonoBehaviour
             RotateTowardsObstacle();
             MoveTowardsObstacle();
 
-            // 보스와 타겟 사이에 선 그리기
+            //거리 시각화
             Debug.DrawLine(transform.position, nearestObstacle.transform.position, Color.red, 0.1f);
-
             // 거리 계산
             float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
-            // 콘솔에 거리 출력 (옵션)
-            Debug.Log($"Distance to {nearestObstacle.name}: {distance:F2} units");
+            //Debug.Log($"Distance to {nearestObstacle.name}: {distance:F2} units");
+
+
         }
 
         if (_bosscontroller.bossTrashList.Count >= maxTrash && !hasShot)
@@ -77,11 +73,25 @@ public class BossMove : MonoBehaviour
         }
     }
 
+
     bool IsTargetTooFar()
     {
         if (nearestObstacle == null) return true;
         float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
         return distance > maxDistance;
+    }
+
+    bool IsTargetTooClose()
+    {
+        if (nearestObstacle == null) return true;
+        float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
+        return distance <= 1f; // 거리가 1 이하일 때 true 반환
+    }
+
+    bool IsTargetTooHigh()
+    {
+        if (nearestObstacle == null) return true;
+        return nearestObstacle.transform.position.y >= 2.8f; // Y좌표가 2.8 이상이면 true
     }
 
     void FindNearestObstacle()
@@ -101,14 +111,16 @@ public class BossMove : MonoBehaviour
                 obsPos.y >= 0f && obsPos.y < 2.4f &&
                 obsPos.z >= -20f && obsPos.z <= 20f)
             {
-                float distance = (obsPos - currentPos).sqrMagnitude;
-                if (distance < minDistance)
+                float distance = Vector3.Distance(currentPos, obsPos); // 실제 거리 사용
+                if (distance > 3f && distance < minDistance) // 거리가 3 초과인 경우만 고려
                 {
                     minDistance = distance;
                     nearestObstacle = obstacle;
                 }
             }
         }
+
+        isLockedOnTarget = nearestObstacle != null;
 
         // 새로운 타겟을 찾았으면 잠금 플래그 설정
         if (nearestObstacle != null)
@@ -152,11 +164,11 @@ public class BossMove : MonoBehaviour
 
         bossRb.MovePosition(transform.position + velocity * Time.deltaTime);
 
-/*        transform.position = Vector3.MoveTowards(
-            transform.position,
-            targetPos,
-            moveSpeed * Time.deltaTime
-        );*/
+        /*        transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    targetPos,
+                    moveSpeed * Time.deltaTime
+                );*/
     }
 
     void ShootTrash()
@@ -185,15 +197,15 @@ public class BossMove : MonoBehaviour
             switch (trashId)
             {
                 case 1:
-                    shootObj = Instantiate(trash, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(trash, transform.position + Vector3.up * 0.3f * i + targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Trash";
                     break;
                 case 2:
-                    shootObj = Instantiate(ice, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(ice, transform.position + Vector3.up * 0.3f * i + targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Ice";
                     break;
                 case 3:
-                    shootObj = Instantiate(banana, transform.position + Vector3.up * 0.3f * i+ targetDir * 2.5f, Quaternion.identity, trashListObject);
+                    shootObj = Instantiate(banana, transform.position + Vector3.up * 0.3f * i + targetDir * 2.5f, Quaternion.identity, trashListObject);
                     shootObj.tag = "Banana";
                     break;
             }
