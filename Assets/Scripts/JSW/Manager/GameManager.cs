@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -47,18 +47,20 @@ public class GameManager : MonoBehaviour
     public Action p1WinAction;
     public Action p2WinAction;
 
+    public bool isEnd { get { return _isEnd; } }
+
     public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º°¡ ÀÌ¹Ì Á¸ÀçÇÏ¸é ÆÄ±«
+        // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤ê°€ ì´ë¯¸ ì¡´ì¬í•˜ë©´ íŒŒê´´
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        // ÀÎ½ºÅÏ½º ¼³Á¤
+        // ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
         Instance = this;
     }
 

@@ -12,10 +12,17 @@ public class PushCubeManager : MonoBehaviour
 
     private float timer;
 
+    GameManager manager;
+
+    private void Start()
+    {
+        manager = FindAnyObjectByType<GameManager>();
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        if (timer >= spawnInterval && !manager.isEnd)
         {
             timer = 0f;
             SpawnPushCube();

@@ -26,56 +26,60 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-
+    GameManager manager;
 
     private void Awake()
     {
         trashListObject = FindAnyObjectByType<ObstacleSpawnManager>().gameObject.transform;
         player = FindAnyObjectByType<PlayerMove>().gameObject;
+
+        manager = FindAnyObjectByType<GameManager>();
     }
     void Start()
     {
         _enemyontroller = GetComponent<EnemyController>();
         bossRb = GetComponent<Rigidbody>();
 
-
+        
         
     }
 
     void FixedUpdate()
     {
-        // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
-        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
+        if (!manager.isEnd)
         {
-            timer += Time.deltaTime;
-            if (timer >= searchInterval)
+            // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
+            if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
             {
-                FindNearestObstacle();
-                timer = 0f;
+                timer += Time.deltaTime;
+                if (timer >= searchInterval)
+                {
+                    FindNearestObstacle();
+                    timer = 0f;
+                }
             }
+
+            // 가장 가까운 Obstacle이 있으면 이동
+            if (nearestObstacle != null && !isShooting)
+            {
+                RotateTowardsObstacle();
+                MoveTowardsObstacle();
+            }
+
+            if (_enemyontroller.enemyTrashList.Count >= 1 && !hasShot)
+            {
+                isShooting = true;
+                Invoke("ShootTrash", 1f);
+                hasShot = true;
+            }
+
+            if (_enemyontroller.enemyTrashList.Count == 0)
+            {
+                hasShot = false;
+            }
+
+
         }
-
-        // 가장 가까운 Obstacle이 있으면 이동
-        if (nearestObstacle != null && !isShooting)
-        {
-            RotateTowardsObstacle();
-            MoveTowardsObstacle();
-        }
-
-        if (_enemyontroller.enemyTrashList.Count >= 1 && !hasShot)
-        {
-            isShooting = true;
-            Invoke("ShootTrash", 1f);
-            hasShot = true;
-        }
-
-        if (_enemyontroller.enemyTrashList.Count == 0)
-        {
-            hasShot = false;
-        }
-
-
-
     }
 
     bool IsTargetTooFar()
@@ -163,19 +167,12 @@ public class EnemyMove : MonoBehaviour
     {
         Vector3 targetDir;
 
-        // 플레이어의 x 위치에 따라 발사 방향 결정
-        if (player.transform.position.x <= 0)
-        {
-            // 플레이어 방향
-            targetDir = (player.transform.position - transform.position).normalized;
-        }
-        else
-        {
+
             // 랜덤 위치 (x = -29, y = 1.67, z = -18~18)
             float randomZ = Random.Range(-18f, 18f);
             Vector3 targetPos = new Vector3(-29f, 1.67f, randomZ);
             targetDir = (targetPos - transform.position).normalized;
-        }
+        
 
         for (int i = 0; i < _enemyontroller.enemyTrashList.Count; i++)
         {
@@ -214,7 +211,7 @@ public class EnemyMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trash") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Banana"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             Destroy(collision.gameObject);
         }
     }
