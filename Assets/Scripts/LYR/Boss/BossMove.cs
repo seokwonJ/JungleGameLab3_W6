@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossMove : MonoBehaviour
 {
-    float moveSpeed = 5f; // 이동 속도
+    public float moveSpeed = 5f; // 이동 속도
     float rotationSpeed = 720f;
     GameObject nearestObstacle; // 가장 가까운 Obstacle (locked target)
     float searchInterval = 0.5f; // 검색 주기 (초)
@@ -21,7 +21,8 @@ public class BossMove : MonoBehaviour
     public GameObject banana;
 
     public Transform trashListObject;
-    public GameObject player;
+    [SerializeField]
+    GameObject player;
     Vector3 offset = new Vector3(0f, 0f, 2.6f);
 
     public int maxTrash = 5;
@@ -31,7 +32,9 @@ public class BossMove : MonoBehaviour
     {
         _bosscontroller = GetComponent<BossController>();
         bossRb = GetComponent<Rigidbody>();
-        
+
+        player = FindAnyObjectByType<PlayerController>().gameObject;
+
     }
 
     void FixedUpdate()

@@ -33,7 +33,7 @@ public class TrashBombManager : MonoBehaviour
         GameObject effect = Instantiate(warningEffectPrefab, center + Vector3.up * 0.01f, Quaternion.identity);
         effect.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(0.5f);
 
         Destroy(effect);
 

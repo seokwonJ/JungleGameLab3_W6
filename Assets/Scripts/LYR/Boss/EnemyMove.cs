@@ -85,25 +85,32 @@ public class EnemyMove : MonoBehaviour
         return distance > maxDistance;
     }
 
+
+    bool IsTargetTooClose()
+    {
+        if (nearestObstacle == null) return true;
+        float distance = Vector3.Distance(transform.position, nearestObstacle.transform.position);
+        return distance <= 1f; // 거리가 1 이하일 때 true 반환
+    }
+
     void FindNearestObstacle()
     {
-        // Obstacle 태그를 가진 모든 오브젝트 가져오기
         GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
         nearestObstacle = null;
         float minDistance = Mathf.Infinity;
         Vector3 currentPos = transform.position;
 
-        // 가장 가까운 Obstacle 찾기 (특정 범위 내에서)
         foreach (GameObject obstacle in obstacles)
         {
             Vector3 obsPos = obstacle.transform.position;
-            // 범위 조건: X(-30~30), Y(0 이상), Z(-20~20)
+            // 범위 조건 유지
             if (obsPos.x >= -30f && obsPos.x <= 30f &&
                 obsPos.y >= 0f && obsPos.y < 2.4f &&
                 obsPos.z >= -20f && obsPos.z <= 20f)
             {
-                float distance = (obsPos - currentPos).sqrMagnitude;
-                if (distance < minDistance)
+                float distance = Vector3.Distance(currentPos, obsPos);
+                // 거리가 1 초과인 타겟만 고려
+                if (distance > 1f && distance < minDistance)
                 {
                     minDistance = distance;
                     nearestObstacle = obstacle;
@@ -111,15 +118,7 @@ public class EnemyMove : MonoBehaviour
             }
         }
 
-        // 새로운 타겟을 찾았으면 잠금 플래그 설정
-        if (nearestObstacle != null)
-        {
-            isLockedOnTarget = true;
-        }
-        else
-        {
-            isLockedOnTarget = false;
-        }
+        isLockedOnTarget = nearestObstacle != null;
     }
 
     void RotateTowardsObstacle()
