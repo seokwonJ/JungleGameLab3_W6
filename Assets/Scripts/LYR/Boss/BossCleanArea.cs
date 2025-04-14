@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossCleanArea : MonoBehaviour
 {
-    private float _maxSuctionSpeed = 10f;
-    private float _suctionRange = 7f;
+    private float _maxSuctionSpeed = 15f;
+    private float _suctionRange = 10f;
     BossController _bossController;
     Transform _bossTransform;
 
