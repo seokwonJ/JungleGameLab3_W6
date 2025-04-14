@@ -29,7 +29,8 @@ public class EnemyMove : MonoBehaviour
     {
         _enemyontroller = GetComponent<EnemyController>();
         bossRb = GetComponent<Rigidbody>();
-        
+        // 플레이어 찾는 로직 추가해봤습니다!
+        player = FindAnyObjectByType<PlayerController>().gameObject;
     }
 
     void FixedUpdate()
