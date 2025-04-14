@@ -45,7 +45,7 @@ public class EnemyMove : MonoBehaviour
     void FixedUpdate()
     {
         // 타겟이 없거나, 타겟이 파괴되었거나, 타겟이 10 유닛 이상 멀어졌을 때 새로운 타겟 검색
-        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar() || IsTargetTooClose())
+        if (!isLockedOnTarget || nearestObstacle == null || IsTargetTooFar())
         {
             {
             timer += Time.deltaTime;
