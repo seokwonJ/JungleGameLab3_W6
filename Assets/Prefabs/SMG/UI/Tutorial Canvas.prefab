@@ -6292,7 +6292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
-      value: Try Bust Attack
+      value: Bust Attack
       objectReference: {fileID: 0}
     - target: {fileID: 4415592109087693289, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
@@ -6459,7 +6459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
-      value: Try Dash
+      value: Dash
       objectReference: {fileID: 0}
     - target: {fileID: 4415592109087693289, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
@@ -6662,7 +6662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
-      value: Try Attack
+      value: Attack
       objectReference: {fileID: 0}
     - target: {fileID: 4415592109087693289, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
@@ -6909,7 +6909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
-      value: Try Move
+      value: Move
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_fontColor.a
@@ -7103,7 +7103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4414547829356955367, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_text
-      value: Try Clean
+      value: Clean
       objectReference: {fileID: 0}
     - target: {fileID: 7942871739337454472, guid: 5f80ffe85baddb04490fc5bfa99c85a4, type: 3}
       propertyPath: m_Name
