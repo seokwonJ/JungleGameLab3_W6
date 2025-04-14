@@ -228,7 +228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6951645597915482467, guid: 2bd8086ab18df1542a595d1c8cc5fc58, type: 3}
   poolSize: 10
-  spawnRadius: 2
   spawnInterval: 5
 --- !u!64 &10879953
 MeshCollider:
@@ -277,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d78835369f09140858621db3772f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
@@ -2945,6 +2943,11 @@ MonoBehaviour:
   trash: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
+  bottle: {fileID: 0}
+  box: {fileID: 0}
+  can: {fileID: 0}
+  canTrashBox: {fileID: 0}
+  plasticBox: {fileID: 0}
   Vacuum: {fileID: 1146353230}
 --- !u!114 &459398794
 MonoBehaviour:
@@ -2974,6 +2977,11 @@ MonoBehaviour:
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
+  bottle: {fileID: 0}
+  box: {fileID: 0}
+  can: {fileID: 0}
+  canTrashBox: {fileID: 0}
+  plasticBox: {fileID: 0}
   trashListObject: {fileID: 1000141876}
   smoke: {fileID: 1851876898}
   Dash_Smoke: {fileID: 1523548247}
@@ -13396,6 +13404,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 10879959}
     m_Modifications:
+    - target: {fileID: 867458748544893154, guid: 3789349aaad506a49bf3c39efb1e7cd9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a6dd8f7296051494bb08a1bf1fe741a2, type: 2}
+    - target: {fileID: 1630315033675374294, guid: 3789349aaad506a49bf3c39efb1e7cd9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a6dd8f7296051494bb08a1bf1fe741a2, type: 2}
     - target: {fileID: 1775047735434531721, guid: 3789349aaad506a49bf3c39efb1e7cd9, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.20000052
@@ -13452,6 +13468,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 5226983075278519041, guid: 3789349aaad506a49bf3c39efb1e7cd9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fe2a89e855f0664418bbae50f16e0a7f, type: 2}
+    - target: {fileID: 8349736614146608540, guid: 3789349aaad506a49bf3c39efb1e7cd9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a6dd8f7296051494bb08a1bf1fe741a2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
