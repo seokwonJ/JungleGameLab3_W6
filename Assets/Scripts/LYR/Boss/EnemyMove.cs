@@ -163,19 +163,12 @@ public class EnemyMove : MonoBehaviour
     {
         Vector3 targetDir;
 
-        // 플레이어의 x 위치에 따라 발사 방향 결정
-        if (player.transform.position.x <= 0)
-        {
-            // 플레이어 방향
-            targetDir = (player.transform.position - transform.position).normalized;
-        }
-        else
-        {
+
             // 랜덤 위치 (x = -29, y = 1.67, z = -18~18)
             float randomZ = Random.Range(-18f, 18f);
             Vector3 targetPos = new Vector3(-29f, 1.67f, randomZ);
             targetDir = (targetPos - transform.position).normalized;
-        }
+        
 
         for (int i = 0; i < _enemyontroller.enemyTrashList.Count; i++)
         {
@@ -214,7 +207,7 @@ public class EnemyMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trash") || collision.gameObject.CompareTag("Ice") || collision.gameObject.CompareTag("Banana"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             Destroy(collision.gameObject);
         }
     }

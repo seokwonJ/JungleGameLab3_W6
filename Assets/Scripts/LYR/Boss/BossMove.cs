@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossMove : MonoBehaviour
 {
-    public float moveSpeed = 5f; // 이동 속도
+    float moveSpeed = 10f; // 이동 속도
     float rotationSpeed = 720f;
     GameObject nearestObstacle; // 가장 가까운 Obstacle (locked target)
     float searchInterval = 0.5f; // 검색 주기 (초)

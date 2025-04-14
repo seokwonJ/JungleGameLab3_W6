@@ -3,22 +3,21 @@ using System.Collections.Generic;
 
 public class ObjectPoolingSpawner : MonoBehaviour
 {
-    public GameObject prefab; // 소환할 프리팹
-    public int poolSize = 10; // 풀 크기
-    public float spawnRadius = 2f; // 소환 반경
-    public float spawnInterval = 5f; // 소환 간격(초)
+    public GameObject prefab;
+    public int poolSize = 10;
+    public float spawnInterval = 5f;
 
-    private List<GameObject> objectPool; // 오브젝트 풀
+    private List<GameObject> objectPool;
     private float timer = 0f;
+    private int objectsToSpawnAtOnce = 5;
 
     void Start()
     {
-        // 오브젝트 풀 초기화
         objectPool = new List<GameObject>();
         for (int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(prefab);
-            obj.SetActive(false); // 비활성화 상태로 시작
+            obj.SetActive(false);
             objectPool.Add(obj);
         }
     }
@@ -29,31 +28,66 @@ public class ObjectPoolingSpawner : MonoBehaviour
 
         if (timer >= spawnInterval)
         {
-            Spawn();
-            timer = 0f; // 타이머 리셋
+            SpawnMultiple();
+            timer = 0f;
         }
     }
 
-    void Spawn()
+    void SpawnMultiple()
     {
-        // 비활성화된 오브젝트 찾기
-        GameObject objToSpawn = GetPooledObject();
-        if (objToSpawn != null)
+        int availableObjects = 0;
+        foreach (var obj in objectPool)
         {
-            // 랜덤한 방향으로 위치 계산
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = transform.position + new Vector3(randomCircle.x, 0, randomCircle.y);
+            if (!obj.activeInHierarchy) availableObjects++;
+        }
 
-            // 오브젝트 위치 설정 및 활성화
-            objToSpawn.transform.position = spawnPosition;
-            objToSpawn.transform.rotation = Quaternion.identity;
-            objToSpawn.SetActive(true);
+        int spawnCount = Mathf.Min(objectsToSpawnAtOnce, availableObjects);
+        List<Vector3> usedPositions = new List<Vector3>();
+
+        for (int i = 0; i < spawnCount; i++)
+        {
+            GameObject objToSpawn = GetPooledObject();
+            if (objToSpawn != null)
+            {
+                Vector3 spawnPosition;
+                bool validPosition;
+                int attempts = 0;
+                const int maxAttempts = 10;
+
+                do
+                {
+                    // x>0, y=1, z=-18~18 범위 내에서 랜덤 위치 생성
+                    float x = Random.Range(0f, 20f); // x는 0 이상 (실제로는 적당한 최대값으로 제한 가능)
+                    float y = 1f;
+                    float z = Random.Range(-18f, 18f);
+                    spawnPosition = new Vector3(x, y, z);
+                    validPosition = true;
+
+                    // 다른 오브젝트와의 최소 거리 확인
+                    foreach (Vector3 pos in usedPositions)
+                    {
+                        if (Vector3.Distance(spawnPosition, pos) < 1f)
+                        {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+                    attempts++;
+                } while (!validPosition && attempts < maxAttempts);
+
+                if (validPosition)
+                {
+                    objToSpawn.transform.position = spawnPosition;
+                    objToSpawn.transform.rotation = Quaternion.identity;
+                    objToSpawn.SetActive(true);
+                    usedPositions.Add(spawnPosition);
+                }
+            }
         }
     }
 
     GameObject GetPooledObject()
     {
-        // 비활성화된 오브젝트 반환
         for (int i = 0; i < objectPool.Count; i++)
         {
             if (!objectPool[i].activeInHierarchy)
@@ -61,6 +95,6 @@ public class ObjectPoolingSpawner : MonoBehaviour
                 return objectPool[i];
             }
         }
-        return null; // 풀에 여유 오브젝트가 없으면 null 반환
+        return null;
     }
 }
