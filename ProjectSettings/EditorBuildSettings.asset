@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Prefabs/LHS/Scenes/Title.unity
+    guid: 1a220085ac3b7ba47872a271a5a7d3ac
+  - enabled: 1
+    path: Assets/Scenes/SampleScene_JSW.unity
+    guid: db23913adab04c74696cbedd40007da0
+  - enabled: 1
+    path: Assets/Scenes/SMG/TutorialScene.unity
+    guid: e79e8a7589b531b44a157aa4438114e3
+  - enabled: 1
+    path: Assets/Scenes/LYR_Stage1.unity
+    guid: d814e08c273026245b91f40b4ed236be
+  - enabled: 1
+    path: Assets/Scenes/LYR_Stage2.unity
+    guid: c2cb1a774303b384b9dbeec8aa335606
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

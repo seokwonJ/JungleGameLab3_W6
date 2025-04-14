@@ -9,7 +9,6 @@ public class ObstacleSpawnManager : MonoBehaviour
     private float _respawnTimeInterval;
     private float _respawnTime;
     private bool _isOverSoon;
-    
 
     public void Start()
     {
@@ -41,5 +40,6 @@ public class ObstacleSpawnManager : MonoBehaviour
     {
         _isOverSoon = isOverSoon;
     }
-    
+
+
 }
