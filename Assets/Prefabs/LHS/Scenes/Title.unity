@@ -3768,7 +3768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -740, y: -33.999977}
+  m_AnchoredPosition: {x: -658, y: -33.999977}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &817809317
@@ -3847,7 +3847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 51e0563ee1e43eb43857d3670c91574e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91700991d18a56041ab93be33ca95512, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8273,6 +8273,11 @@ MonoBehaviour:
   trash: {fileID: 0}
   ice: {fileID: 0}
   banana: {fileID: 0}
+  bottle: {fileID: 0}
+  box: {fileID: 0}
+  can: {fileID: 0}
+  canTrashBox: {fileID: 0}
+  plasticBox: {fileID: 0}
   Vacuum: {fileID: 2046424368}
 --- !u!114 &1749471865
 MonoBehaviour:
@@ -8302,6 +8307,11 @@ MonoBehaviour:
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
+  bottle: {fileID: 0}
+  box: {fileID: 0}
+  can: {fileID: 0}
+  canTrashBox: {fileID: 0}
+  plasticBox: {fileID: 0}
   trashListObject: {fileID: 0}
   smoke: {fileID: 1065329166}
   Dash_Smoke: {fileID: 1657909847}
