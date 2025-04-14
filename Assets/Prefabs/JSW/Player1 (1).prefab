@@ -13124,6 +13124,11 @@ MonoBehaviour:
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
+  bottle: {fileID: 0}
+  box: {fileID: 0}
+  can: {fileID: 0}
+  canTrashBox: {fileID: 0}
+  plasticBox: {fileID: 0}
   trashListObject: {fileID: 0}
   smoke: {fileID: 1348715970320965547}
   Dash_Smoke: {fileID: 8558957890785808180}

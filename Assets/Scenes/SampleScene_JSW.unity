@@ -2273,7 +2273,7 @@ MonoBehaviour:
   p2ScoreText: {fileID: 1042707027}
   obstacleObjectList: {fileID: 1000141875}
   player1: {fileID: 459398792}
-  player2: {fileID: 0}
+  player2: {fileID: 1110825098}
   playerCanvas: {fileID: 1844667192}
   tutorialInput: {fileID: 975878471}
   finishText: {fileID: 1412436955}
@@ -3503,6 +3503,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1110825098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8330065475715088506, guid: 57d82ae4719e795429a6e4ed86797e8c, type: 3}
+  m_PrefabInstance: {fileID: 580721225}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1134789573
 GameObject:
   m_ObjectHideFlags: 0
