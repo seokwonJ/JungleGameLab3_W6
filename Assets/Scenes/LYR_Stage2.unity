@@ -3595,6 +3595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d78835369f09140858621db3772f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 10
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
@@ -18452,8 +18453,8 @@ MonoBehaviour:
   spawnInterval: 8
   fixedX: 30
   fixedY: 1
-  zMin: -20
-  zMax: 20
+  zMin: -15
+  zMax: 15
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
