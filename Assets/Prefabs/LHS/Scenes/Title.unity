@@ -573,7 +573,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 41620574}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1143459355}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: GameQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &41620574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4835,6 +4847,11 @@ MonoBehaviour:
   - {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   - {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   - {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
+  - {fileID: 8392731819524686299, guid: ce248dafb0a1d194799cbbd572d0a85e, type: 3}
+  - {fileID: 8392731819524686299, guid: dba1c46f4e3efd846baf578d15922bbd, type: 3}
+  - {fileID: 8392731819524686299, guid: 2e56af8c2ccb68743a71cc2de8076a25, type: 3}
+  - {fileID: 8392731819524686299, guid: 66be15db5fb85934d8e42834874ccdae, type: 3}
+  - {fileID: 8392731819524686299, guid: 457a2f7062055e8489ce2b2c8a888284, type: 3}
   trashListObject: {fileID: 1075155478}
 --- !u!4 &1075155478
 Transform:
@@ -8270,14 +8287,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashList: 
-  trash: {fileID: 0}
-  ice: {fileID: 0}
-  banana: {fileID: 0}
-  bottle: {fileID: 0}
-  box: {fileID: 0}
-  can: {fileID: 0}
-  canTrashBox: {fileID: 0}
-  plasticBox: {fileID: 0}
+  trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
+  ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
+  banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
+  bottle: {fileID: 8392731819524686299, guid: ce248dafb0a1d194799cbbd572d0a85e, type: 3}
+  box: {fileID: 8392731819524686299, guid: dba1c46f4e3efd846baf578d15922bbd, type: 3}
+  can: {fileID: 8392731819524686299, guid: 2e56af8c2ccb68743a71cc2de8076a25, type: 3}
+  canTrashBox: {fileID: 8392731819524686299, guid: 66be15db5fb85934d8e42834874ccdae, type: 3}
+  plasticBox: {fileID: 8392731819524686299, guid: 457a2f7062055e8489ce2b2c8a888284, type: 3}
   Vacuum: {fileID: 2046424368}
 --- !u!114 &1749471865
 MonoBehaviour:
@@ -8307,12 +8324,12 @@ MonoBehaviour:
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
-  bottle: {fileID: 0}
-  box: {fileID: 0}
-  can: {fileID: 0}
-  canTrashBox: {fileID: 0}
-  plasticBox: {fileID: 0}
-  trashListObject: {fileID: 0}
+  bottle: {fileID: 8392731819524686299, guid: ce248dafb0a1d194799cbbd572d0a85e, type: 3}
+  box: {fileID: 8392731819524686299, guid: dba1c46f4e3efd846baf578d15922bbd, type: 3}
+  can: {fileID: 8392731819524686299, guid: 2e56af8c2ccb68743a71cc2de8076a25, type: 3}
+  canTrashBox: {fileID: 8392731819524686299, guid: 66be15db5fb85934d8e42834874ccdae, type: 3}
+  plasticBox: {fileID: 8392731819524686299, guid: 457a2f7062055e8489ce2b2c8a888284, type: 3}
+  trashListObject: {fileID: 1075155478}
   smoke: {fileID: 1065329166}
   Dash_Smoke: {fileID: 1657909847}
 --- !u!114 &1749471867
