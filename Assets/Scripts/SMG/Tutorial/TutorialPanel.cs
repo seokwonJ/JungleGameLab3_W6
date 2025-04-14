@@ -30,15 +30,13 @@ public class TutorialPanel : MonoBehaviour
     public Func<bool> ExtraIF1P;
     public Func<bool> ExtraIF2P;
 
-    public bool isDebug = false;
-
-    private void Start()
+    private void Awake()
     {
-        if(tutorialKeys1P.Length > 0)
+        if (tutorialKeys1P.Length > 0)
         {
             holdDeltaTimes1P = new float[tutorialKeys1P.Length];
         }
-        if(tutorialKeys2P.Length > 0)
+        if (tutorialKeys2P.Length > 0)
         {
             holdDeltaTimes2P = new float[tutorialKeys2P.Length];
         }
@@ -52,11 +50,7 @@ public class TutorialPanel : MonoBehaviour
 
         bool check1P = CheckTutorial(tutorialKeys1P, holdDeltaTimes1P, ExtraIF1P);
         bool check2P = CheckTutorial(tutorialKeys2P, holdDeltaTimes2P, ExtraIF2P);
-        if(isDebug)
-        {
-            string msg = name + ".check1P: " + check1P + "\ncheck2P: " + check2P + "\nisComplete: " + isComplete;
-            Debug.Log(msg);
-        }
+
         if ((check1P || check2P) && !isComplete)
         {
             isComplete = true;

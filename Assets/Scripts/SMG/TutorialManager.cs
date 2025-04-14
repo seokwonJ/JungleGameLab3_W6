@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -52,7 +53,6 @@ public class TutorialManager : MonoBehaviour
                 }
                 panels[i].ShowPanel(false);
             }
-            
 
             if (panels.Length > 0)
             {
@@ -62,7 +62,7 @@ public class TutorialManager : MonoBehaviour
                 
         }
 
-        if(systemCanvas != null)
+        if (systemCanvas != null)
         {
             Button[] buttons = systemCanvas.GetComponentsInChildren<Button>(true);
             for(int i = 0; i < buttons.Length; i++)
@@ -78,7 +78,7 @@ public class TutorialManager : MonoBehaviour
     int getTrashCountBeforeAttackP2;
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             getTrashCountBeforeAttackP1 = player1.trashList.Count;
         }
