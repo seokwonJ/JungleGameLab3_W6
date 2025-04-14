@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2830338868464869653}
   - component: {fileID: 319507836097743956}
   - component: {fileID: 4451206331151077111}
+  - component: {fileID: -8965114234834423365}
   m_Layer: 0
   m_Name: Item_ScaleUp
   m_TagString: Untagged
@@ -119,5 +120,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1dc2a9dbe5a68541bffb9f9c01bac50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8965114234834423365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495168290282599984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13ae5638bcda164cb4f829bd5b424f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
