@@ -66,6 +66,9 @@ public class TrashBombManager : MonoBehaviour
             if (trash.transform.position.y <= 0.5f)
             {
                 trash.tag = "Obstacle";
+                Obstacle obs = trash.GetComponent<Obstacle>();
+                obs.dir = Vector3.zero;
+
                 yield break; // 태그 변경 후 코루틴 종료
             }
             yield return null; // 다음 프레임까지 대기
