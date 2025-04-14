@@ -9,6 +9,12 @@ public class PlayerController : MonoBehaviour
     public GameObject trash;
     public GameObject ice;
     public GameObject banana;
+    public GameObject bottle;
+    public GameObject box;
+    public GameObject can;
+    public GameObject canTrashBox;
+    public GameObject plasticBox;
+
     private Transform _trashListObject;
     private PlayerMove _playerMove;
 
@@ -97,6 +103,21 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 3:
                     shootObject = Instantiate(banana, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 6:
+                    shootObject = Instantiate(bottle, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 7:
+                    shootObject = Instantiate(box, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 8:
+                    shootObject = Instantiate(can, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 9:
+                    shootObject = Instantiate(canTrashBox, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
+                    break;
+                case 10:
+                    shootObject = Instantiate(plasticBox, transform.position + Vector3.up * i * 0.05f + new Vector3(x, 0, z), Quaternion.identity, _trashListObject);
                     break;
                 default:
                     break;

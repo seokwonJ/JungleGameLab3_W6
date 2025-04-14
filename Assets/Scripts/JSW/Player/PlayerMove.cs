@@ -167,7 +167,7 @@ public class PlayerMove : MonoBehaviour
         if (_numState >= 1 && _numState <= 3 && (num == 4 || num == 5)) return;
         _stateTime = 0;
         _numState = num;
-        if (_numState >= 1 && _numState <= 3)
+        if ((_numState >= 1 && _numState <= 3) || (_numState >= 6 && _numState <= 10))
         {
             _playerController.DropObstacles();
             _numState = 3; // 맞으면 무조건 미끄러지기

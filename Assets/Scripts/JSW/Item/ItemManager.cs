@@ -78,7 +78,7 @@ public class ItemManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
 
         scaleUp = 1;
         player.GetComponent<Rigidbody>().mass = 1;
