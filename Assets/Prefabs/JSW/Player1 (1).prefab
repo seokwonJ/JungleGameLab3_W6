@@ -13156,6 +13156,11 @@ MonoBehaviour:
   trash: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
+  bottle: {fileID: 8392731819524686299, guid: ce248dafb0a1d194799cbbd572d0a85e, type: 3}
+  box: {fileID: 8392731819524686299, guid: dba1c46f4e3efd846baf578d15922bbd, type: 3}
+  can: {fileID: 8392731819524686299, guid: 2e56af8c2ccb68743a71cc2de8076a25, type: 3}
+  canTrashBox: {fileID: 8392731819524686299, guid: 66be15db5fb85934d8e42834874ccdae, type: 3}
+  plasticBox: {fileID: 8392731819524686299, guid: 457a2f7062055e8489ce2b2c8a888284, type: 3}
   Vacuum: {fileID: 287437385368737585}
 --- !u!1 &8393687518684617769
 GameObject:

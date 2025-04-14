@@ -16,6 +16,11 @@ public class PlayerAttack : MonoBehaviour
     public GameObject trash;
     public GameObject ice;
     public GameObject banana;
+    public GameObject bottle;
+    public GameObject box;
+    public GameObject can;
+    public GameObject canTrashBox;
+    public GameObject plasticBox;
     public Transform trashListObject;
     public ParticleSystem smoke;
 
@@ -144,7 +149,31 @@ public class PlayerAttack : MonoBehaviour
                 shootObject = Instantiate(banana, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
                 shootObject.tag = "Banana";
                 break;
-
+            case 6:
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(bottle, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
+            case 7:
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(box, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
+            case 8:
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(can, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
+            case 9:
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(canTrashBox, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
+            case 10:
+                if (num % 2 == 1) num *= -1;
+                shootObject = Instantiate(plasticBox, transform.position + transform.forward * 1.4f + transform.right * -1 * 0.05f * num, Quaternion.identity, trashListObject);
+                shootObject.tag = "Banana";
+                break;
             default:
                 break;
         }
