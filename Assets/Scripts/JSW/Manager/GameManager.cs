@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public TMP_Text timeText;
     public Text p1ScoreText;
     public Text p2ScoreText;
-    public GameObject restartButton;
     public GameObject obstacleObjectList;
     public GameObject player1;
     public GameObject player2;
@@ -28,7 +27,8 @@ public class GameManager : MonoBehaviour
     public VideoPlayer loseVideoPlayer;
     public Texture winEnding_Texture;
     public Texture loseEnding_Texture;
-
+    public GameObject restartButton;
+    public GameObject exitButton;
 
     private float _time = 60;
     private bool _isHalf;
@@ -111,41 +111,42 @@ public class GameManager : MonoBehaviour
         finishText.SetActive(false);
         player1.GetComponent<PlayerController>().DropObstacles();
         player2.GetComponent<PlayerController>().DropObstacles();
-        Invoke("countingTrash", 2f);
+        Invoke("countingTrash", 3f);
     }
 
     void countingTrash()
     {
         Time.timeScale = 0f;
         playerCanvas.SetActive(false);
-        endingCanvas.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        endingCanvas.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
-        endingCanvas.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
-        endingCanvas.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+        endingCanvas.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
 
         if (_p1TrashCount < _p2TrashCount)
         {
-            endingCanvas.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-            endingCanvas.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
-            endingCanvas.transform.GetChild(0).GetChild(3).GetComponent<RawImage>().texture = winEnding_Texture;
-            endingCanvas.transform.GetChild(1).GetChild(3).GetComponent<RawImage>().texture = loseEnding_Texture;
+            endingCanvas.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(0).GetChild(1).GetComponent<RawImage>().texture = winEnding_Texture;
+            endingCanvas.transform.GetChild(1).GetChild(1).GetComponent<RawImage>().texture = loseEnding_Texture;
         }
         else
         {
-            endingCanvas.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
-            endingCanvas.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
-            endingCanvas.transform.GetChild(0).GetChild(3).GetComponent<RawImage>().texture = loseEnding_Texture;
-            endingCanvas.transform.GetChild(1).GetChild(3).GetComponent<RawImage>().texture = winEnding_Texture;
+            endingCanvas.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
+            endingCanvas.transform.GetChild(0).GetChild(1).GetComponent<RawImage>().texture = loseEnding_Texture;
+            endingCanvas.transform.GetChild(1).GetChild(1).GetComponent<RawImage>().texture = winEnding_Texture;
         }
         winVideoPlayer.Play();
         loseVideoPlayer.Play();
         restartButton.SetActive(true);
+        exitButton.SetActive(true);
     }
 
-    public void Restart()
+    public void SceneLoadNum(int i)
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(i);
     }
 
     public void UpdateScore(bool isRight, int num)
