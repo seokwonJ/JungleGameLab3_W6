@@ -2373,8 +2373,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 1, z: 0.99999994}
-  m_Center: {x: 0.00000047683716, y: 0, z: 0}
+  m_Size: {x: 0.99999994, y: 1.2201141, z: 2.2041671}
+  m_Center: {x: 0.00000047683716, y: 0.1100564, z: -0.6020831}
 --- !u!1 &398212038
 GameObject:
   m_ObjectHideFlags: 0
@@ -18465,7 +18465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushCubePrefab: {fileID: 2525565257294401531, guid: 346e56a76190f1e41b87c7dfaa8e5a18, type: 3}
   spawnInterval: 8
-  fixedX: 30
+  fixedX: 35
   fixedY: 1
   zMin: -15
   zMax: 15
