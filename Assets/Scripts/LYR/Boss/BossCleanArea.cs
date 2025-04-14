@@ -12,11 +12,13 @@ public class BossCleanArea : MonoBehaviour
     List<Rigidbody> trashList = new List<Rigidbody>();
 
     public int maxTrash = 5;
-
+    GameManager manager;
     void Start()
     {
         _bossTransform = transform.parent;
         _bossController = _bossTransform.GetComponent<BossController>();
+
+        manager = FindAnyObjectByType<GameManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -43,35 +45,37 @@ public class BossCleanArea : MonoBehaviour
 
     void FixedUpdate()
     {
-
-        for (int i = trashList.Count - 1; i >= 0; i--)
+        if (!manager.isEnd)
         {
-            var trashrRB = trashList[i];
-            if (trashrRB == null)
+            for (int i = trashList.Count - 1; i >= 0; i--)
             {
-                trashList.RemoveAt(i);
-                continue;
+                var trashrRB = trashList[i];
+                if (trashrRB == null)
+                {
+                    trashList.RemoveAt(i);
+                    continue;
+                }
+
+                Vector3 direction = (_bossTransform.position - trashrRB.transform.position);
+                float distance = direction.magnitude;
+                //오브젝트 흡수
+                if (distance < 3.5f && _bossController.bossTrashList.Count < maxTrash)
+                {
+                    _bossController.bossTrashList.Add(trashrRB.gameObject.GetComponent<Obstacle>().trashId);
+
+                    trashList.RemoveAt(i);
+                    Destroy(trashrRB.gameObject);
+                    continue;
+                }
+
+                float t = Mathf.Clamp01(1f - (distance / _suctionRange));
+                float suctionSpeed = _maxSuctionSpeed * t;
+
+                trashrRB.linearVelocity = direction.normalized * suctionSpeed;
             }
-
-            Vector3 direction = (_bossTransform.position - trashrRB.transform.position);
-            float distance = direction.magnitude;
-            //오브젝트 흡수
-            if (distance < 3.5f && _bossController.bossTrashList.Count < maxTrash)
-            {
-                _bossController.bossTrashList.Add(trashrRB.gameObject.GetComponent<Obstacle>().trashId);
-                
-                trashList.RemoveAt(i);
-                Destroy(trashrRB.gameObject);
-                continue;
-            }
-
-            float t = Mathf.Clamp01(1f - (distance / _suctionRange));
-            float suctionSpeed = _maxSuctionSpeed * t;
-
-            trashrRB.linearVelocity = direction.normalized * suctionSpeed;
         }
-    }
 
+    }
 
 
 }

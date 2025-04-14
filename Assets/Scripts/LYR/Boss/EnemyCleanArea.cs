@@ -11,10 +11,13 @@ public class EnemyCleanArea : MonoBehaviour
 
     List<Rigidbody> trashList = new List<Rigidbody>(); // 단일 항목만 유지하도록 제한
 
+    GameManager manager;
     void Start()
     {
         _EnemyTransform = transform.parent;
         _enemyController = _EnemyTransform.GetComponent<EnemyController>();
+
+        manager = FindAnyObjectByType<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,30 +48,33 @@ public class EnemyCleanArea : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (trashList.Count == 0) return;
-
-        var trashRb = trashList[0]; // 첫 번째 항목만 처리
-        if (trashRb == null)
+        if (!manager.isEnd)
         {
-            trashList.Clear();
-            return;
+            if (trashList.Count == 0) return;
+
+            var trashRb = trashList[0]; // 첫 번째 항목만 처리
+            if (trashRb == null)
+            {
+                trashList.Clear();
+                return;
+            }
+
+            Vector3 direction = (_EnemyTransform.position - trashRb.transform.position);
+            float distance = direction.magnitude;
+
+            // 오브젝트 흡수
+            if (distance < 3.4f && _enemyController.enemyTrashList.Count < 1)
+            {
+                _enemyController.enemyTrashList.Add(trashRb.gameObject.GetComponent<Obstacle>().trashId);
+                trashList.Clear();
+                Destroy(trashRb.gameObject);
+                return;
+            }
+
+            float t = Mathf.Clamp01(1f - (distance / _suctionRange));
+            float suctionSpeed = _maxSuctionSpeed * t;
+
+            trashRb.linearVelocity = direction.normalized * suctionSpeed;
         }
-
-        Vector3 direction = (_EnemyTransform.position - trashRb.transform.position);
-        float distance = direction.magnitude;
-
-        // 오브젝트 흡수
-        if (distance < 3.4f && _enemyController.enemyTrashList.Count < 1)
-        {
-            _enemyController.enemyTrashList.Add(trashRb.gameObject.GetComponent<Obstacle>().trashId);
-            trashList.Clear();
-            Destroy(trashRb.gameObject);
-            return;
-        }
-
-        float t = Mathf.Clamp01(1f - (distance / _suctionRange));
-        float suctionSpeed = _maxSuctionSpeed * t;
-
-        trashRb.linearVelocity = direction.normalized * suctionSpeed;
     }
 }
