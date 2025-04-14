@@ -3595,7 +3595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d78835369f09140858621db3772f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
   trash: {fileID: 8392731819524686299, guid: 1ffbcb549881bfc4899080692300d5ce, type: 3}
   ice: {fileID: 584630293286085560, guid: 1410664787befde418c85a8423f56c90, type: 3}
   banana: {fileID: 5656166925251853439, guid: f90b911944a4faf4aa768162fcd5604f, type: 3}
@@ -4745,71 +4744,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 634181629}
   m_CullTransparentMesh: 1
---- !u!1001 &651003163
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.39
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0000009536743
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -7.6817255
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8295994884526274582, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676918916118028972, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_Name
-      value: truck_2_red
-      objectReference: {fileID: 0}
-    - target: {fileID: 8820288037527399463, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.8125
-      objectReference: {fileID: 0}
-    - target: {fileID: 8820288037527399463, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.664
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6a75178cac91a7a4e840adf263087255, type: 3}
 --- !u!1 &662552045
 GameObject:
   m_ObjectHideFlags: 0
@@ -5099,6 +5033,7 @@ MonoBehaviour:
   player1: {fileID: 459398792}
   player2: {fileID: 516050934}
   playerCanvas: {fileID: 1844667192}
+  tutorialInput: {fileID: 0}
   finishText: {fileID: 1412436955}
   ReadyText: {fileID: 424828417}
   GoText: {fileID: 1196724589}
@@ -18539,4 +18474,3 @@ SceneRoots:
   - {fileID: 1109928714}
   - {fileID: 1302019840}
   - {fileID: 926177405}
-  - {fileID: 651003163}
